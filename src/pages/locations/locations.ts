@@ -23,14 +23,30 @@ export class LocationsPage {
   }
 
   initMap(){
-    let latLng = new google.maps.LatLng(-2,-1.0384);
-
+    let latLng = new google.maps.LatLng(37.24804,-115.800155);
     let mapOptions = {
       center: latLng,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        this.map.setCenter(pos);
+
+      });
+    }
+    else{
+      console.log('browser does not support geolocation')
+    }
   }
 
 }
