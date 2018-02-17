@@ -10,7 +10,10 @@ import { HomePage } from '../pages/home/home';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {LocationsPage} from "../pages/locations/locations";
+import {AngularFirestoreModule} from "angularfire2/firestore";
+import {AngularFireAuthModule} from "angularfire2/auth";
 
+import * as firebase from 'firebase';
 
 
 // Initialize Firebase
@@ -24,6 +27,9 @@ export const firebaseConfig = {
 };
 
 
+AngularFirestoreModule.enablePersistence();
+firebase.initializeApp(firebaseConfig);
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,7 +40,9 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

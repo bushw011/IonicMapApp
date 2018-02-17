@@ -2,25 +2,18 @@ import {Injectable} from "@angular/core";
 import {AngularFirestore, QueryFn} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {Location} from "./location";
+import {query} from "@angular/core/src/animation/dsl";
+
 
 @Injectable()
-export class LocationsService {
+export class LocationService {
 
   constructor(public db: AngularFirestore){
 
   }
 
-  public getLocations(queryFn?: QueryFn): Observable<Location[]> {
-    let locationCollection = this.db.collection<Location>('Locations', queryFn);
-    let locations = locationCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Location;
-        const id = a.payload.doc.id;
-        return {id, ...data};
-      })
-    });
+  public getLocations(){
 
-    return locations;
   }
 
   public updateDescription(newDescription: string, locationID: string){
