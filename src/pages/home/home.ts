@@ -12,7 +12,11 @@ export class HomePage {
 
   locations = LocationsPage;
   constructor(public navCtrl: NavController) {
+    this.navCtrl = navCtrl;
+  }
 
+  navigateToLocations(){
+    this.navCtrl.push(this.locations);
   }
 
 }

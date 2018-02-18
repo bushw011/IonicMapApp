@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import { LocationService } from "../../app/location/location.service";
 import {Location} from "../../app/location/location";
 import {AngularFirestore} from "angularfire2/firestore";
 import {AngularFireDatabase} from "angularfire2/database";
 import * as firebase from 'firebase';
+import {Observable} from "rxjs/Observable";
 
 
 declare var google;
@@ -15,13 +16,25 @@ declare var google;
   selector: 'page-locations',
   templateUrl: 'locations.html',
 })
-export class LocationsPage implements OnInit{
+
+
+export class LocationsPage {
+
+
+  locations: Observable<Location[]>;
 
   @ViewChild('map') mapElement;
   map: any;
   locationList: Location[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public locationService: LocationService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public locationService: LocationService,
+              public viewCtrl: ViewController,
+              public db: AngularFirestore
+              ) {
+    this.locations = this.db.collection('Locations').valueChanges();
+
 
   }
 
@@ -30,6 +43,18 @@ export class LocationsPage implements OnInit{
     console.log('ionViewDidLoad LocationsPage');
     this.initMap();
 
+  }
+
+  ionViewDidEnter() {
+    console.log('did enter');
+    this.getLocations().subscribe(locations =>{
+      console.log(locations);
+      this.locationList = locations;
+    });
+  }
+
+  public getLocations(){
+    return this.locations;
   }
 
   initMap(){
@@ -59,12 +84,6 @@ export class LocationsPage implements OnInit{
     }
   }
 
-  ngOnInit(){
-    this.locationService.getLocations().subscribe(locations =>{
-      console.log(locations);
-      this.locationList = locations;
-    });
-  }
 
 
 }
