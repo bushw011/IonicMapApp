@@ -21,4 +21,14 @@
   <div #map id="map">
 
   </div>
+  <div *ngIf="locationList?.length > 0; else noLocations" class="content">
+    <ul *ngFor="let location of locationList" class="location-list">
+      <li class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}</li>
+    </ul>
+  </div>
+
+  <ng-template #noLocations>
+    <hr>
+    <h5>There are no locations available</h5>
+  </ng-template>
 </ion-content>

@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LocationService} from "../../app/locations/location.service";
-import {LocationId} from "../../app/locations/location";
+import { LocationService } from "../../app/location/location.service";
+import {Location} from "../../app/location/location";
 import {AngularFirestore} from "angularfire2/firestore";
-import {Location} from "../../app/locations/location";
 import {AngularFireDatabase} from "angularfire2/database";
 import * as firebase from 'firebase';
 
@@ -20,15 +19,10 @@ export class LocationsPage implements OnInit{
 
   @ViewChild('map') mapElement;
   map: any;
+  locationList: Location[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let db = firebase.firestore();
-    db.collection('Locations').get().then((querySnapshot)=>{
-      querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
-    });
+  constructor(public navCtrl: NavController, public navParams: NavParams, public locationService: LocationService) {
+
   }
 
   ionViewDidLoad() {
@@ -66,9 +60,11 @@ export class LocationsPage implements OnInit{
   }
 
   ngOnInit(){
-
-    //this.locationService.getLocations();
-
+    this.locationService.getLocations().subscribe(locations =>{
+      console.log(locations);
+      this.locationList = locations;
+    });
   }
+
 
 }

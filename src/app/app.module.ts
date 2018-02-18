@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { environment } from "../environments/environment";
+import { LocationService } from "./location/location.service";
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from "angularfire2/database";
@@ -16,19 +18,8 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import * as firebase from 'firebase';
 
 
-// Initialize Firebase
-export const firebaseConfig = {
-  apiKey: "AIzaSyAu-yv5yCQaVOxNNJmsnRe5zGWSX0fg_is",
-  authDomain: "ionicmapapp-d56b5.firebaseapp.com",
-  databaseURL: "https://ionicmapapp-d56b5.firebaseio.com",
-  projectId: "ionicmapapp-d56b5",
-  storageBucket: "ionicmapapp-d56b5.appspot.com",
-  messagingSenderId: "176683947764"
-};
-
-
 AngularFirestoreModule.enablePersistence();
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -40,7 +31,7 @@ firebase.initializeApp(firebaseConfig);
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
@@ -53,6 +44,7 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    LocationService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
