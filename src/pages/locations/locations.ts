@@ -27,7 +27,6 @@ export class LocationsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public locationService: LocationService,
               public viewCtrl: ViewController,
               public db: AngularFirestore
               ) {

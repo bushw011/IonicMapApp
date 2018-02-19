@@ -15,10 +15,13 @@
   <div #map id="map">
 
   </div>
+
   <div *ngIf="locationList?.length > 0; else noLocations" class="content">
-    <ion-list class="location-list">
-      <button ion-item *ngFor="let location of locationList" class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}</button>
-    </ion-list>
+    <ion-scroll scrollY="true" style="height: 220px">
+      <ion-list class="location-list">
+        <button ion-item *ngFor="let location of locationList" class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}</button>
+      </ion-list>
+    </ion-scroll>
   </div>
 
   <ng-template #noLocations>
