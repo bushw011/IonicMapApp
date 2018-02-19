@@ -20,11 +20,9 @@ declare var google;
 
 export class LocationsPage {
 
-
-  locations: Observable<Location[]>;
-
   @ViewChild('map') mapElement;
   map: any;
+  locationObservable: Observable<Location[]>;
   locationList: Location[];
 
   constructor(public navCtrl: NavController,
@@ -33,7 +31,7 @@ export class LocationsPage {
               public viewCtrl: ViewController,
               public db: AngularFirestore
               ) {
-    this.locations = this.db.collection('Locations').valueChanges();
+    this.locationObservable = this.db.collection('Locations').valueChanges();
 
 
   }
@@ -54,7 +52,7 @@ export class LocationsPage {
   }
 
   public getLocations(){
-    return this.locations;
+    return this.locationObservable;
   }
 
   initMap(){
