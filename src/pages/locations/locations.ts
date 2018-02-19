@@ -6,6 +6,7 @@ import {AngularFirestore} from "angularfire2/firestore";
 import {AngularFireDatabase} from "angularfire2/database";
 import * as firebase from 'firebase';
 import {Observable} from "rxjs/Observable";
+import {map} from "rxjs/operators";
 
 
 declare var google;
@@ -73,7 +74,11 @@ export class LocationsPage {
           lng: position.coords.longitude
         };
         this.map.setCenter(pos);
-
+        let myMarker = new google.maps.Marker({
+          position: pos,
+          map: this.map,
+          title: 'user location'
+        });
       });
     }
     else{
