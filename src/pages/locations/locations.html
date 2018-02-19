@@ -22,9 +22,9 @@
 
   </div>
   <div *ngIf="locationList?.length > 0; else noLocations" class="content">
-    <ul *ngFor="let location of locationList" class="location-list">
-      <li class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}</li>
-    </ul>
+    <ion-list class="location-list">
+      <button ion-item *ngFor="let location of locationList" class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}</button>
+    </ion-list>
   </div>
 
   <ng-template #noLocations>
