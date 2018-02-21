@@ -86,6 +86,10 @@ export class LocationsPage {
     }
   }
 
+  mapLocation(){
+
+  }
+
 
 
 }
