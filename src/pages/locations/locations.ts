@@ -25,7 +25,7 @@ export class LocationsPage {
   map: any;
   locationObservable: Observable<Location[]>;
   locationList: Location[];
-
+  selectedMarker;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
@@ -86,8 +86,16 @@ export class LocationsPage {
     }
   }
 
-  mapLocation(){
+  mapLocation(location: Location){
 
+    this.selectedMarker = new google.maps.Marker({
+      position: {
+        lat: location.coordinates._lat,
+        lng: location.coordinates._long
+      },
+      map: this.map,
+      title: 'Selected location marker'
+    });
   }
 
 
