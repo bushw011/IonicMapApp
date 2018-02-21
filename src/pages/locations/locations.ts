@@ -103,6 +103,6 @@ export class LocationsPage {
 
   }
 
-  
+
 
 }
