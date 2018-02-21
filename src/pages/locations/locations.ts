@@ -1,16 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
-import { LocationService } from "../../app/location/location.service";
 import {Location} from "../../app/location/location";
 import {AngularFirestore} from "angularfire2/firestore";
-import {AngularFireDatabase} from "angularfire2/database";
-import * as firebase from 'firebase';
 import {Observable} from "rxjs/Observable";
-import {map} from "rxjs/operators";
-
 
 declare var google;
-
 
 @IonicPage()
 @Component({
@@ -26,7 +20,7 @@ export class LocationsPage {
   locationObservable: Observable<Location[]>;
   locationList: Location[];
 
-  selectedMarker = new google.maps.Marker;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
@@ -57,7 +51,7 @@ export class LocationsPage {
   public getLocations(){
     return this.locationObservable;
   }
-  
+
 
   initMap(){
     let latLng = new google.maps.LatLng(37.24804,-115.800155);
@@ -109,8 +103,6 @@ export class LocationsPage {
 
   }
 
-
-
-
+  
 
 }
