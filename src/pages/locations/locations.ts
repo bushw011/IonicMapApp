@@ -25,7 +25,8 @@ export class LocationsPage {
   map: any;
   locationObservable: Observable<Location[]>;
   locationList: Location[];
-  selectedMarker;
+
+  selectedMarker = new google.maps.Marker;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
@@ -48,12 +49,15 @@ export class LocationsPage {
     this.getLocations().subscribe(locations =>{
       console.log(locations);
       this.locationList = locations;
+      this.setMarkers(locations);
     });
+
   }
 
   public getLocations(){
     return this.locationObservable;
   }
+  
 
   initMap(){
     let latLng = new google.maps.LatLng(37.24804,-115.800155);
@@ -86,9 +90,15 @@ export class LocationsPage {
     }
   }
 
-  mapLocation(location: Location){
+  public setMarkers(locations: Location[]){
+    for(var i = 0; i < locations.length;i++){
+      this.addMarker(locations[i]);
+    }
+    return locations;
+  }
 
-    this.selectedMarker = new google.maps.Marker({
+  addMarker(location: Location){
+    let newMarker = new google.maps.Marker({
       position: {
         lat: location.coordinates._lat,
         lng: location.coordinates._long
@@ -96,7 +106,10 @@ export class LocationsPage {
       map: this.map,
       title: 'Selected location marker'
     });
+
   }
+
+
 
 
 

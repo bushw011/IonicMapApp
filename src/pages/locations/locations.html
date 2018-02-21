@@ -19,7 +19,7 @@
   <div *ngIf="locationList?.length > 0; else noLocations" class="content">
     <ion-scroll scrollY="true" style="height: 240px">
       <ion-list class="location-list">
-        <button ion-item *ngFor="let location of locationList" (click)="mapLocation(location)" class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}<p>At: {{location.coordinates._lat}}, {{location.coordinates._long}}</p></button>
+        <button ion-item *ngFor="let location of locationList"  class="location-list-item"><strong>{{location.title}}</strong>: {{location.description}}<p>At: {{location.coordinates._lat}}, {{location.coordinates._long}}</p></button>
       </ion-list>
     </ion-scroll>
   </div>
