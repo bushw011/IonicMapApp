@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Location} from "../../app/location/location";
-import {AngularFirestore} from "angularfire2/firestore";
+import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
+import {LocationService} from "../../app/location/location.service";
 
 declare var google;
 
@@ -103,6 +104,29 @@ export class LocationsPage {
 
   }
 
+  /* This function uses the Haversine formula to calculate distance between two GeoPoints,
+  which is basically a nice alternative to using Google's API.
+  Credit: https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+   */
+  getDistance(myLocation: Location, targetLocation: Location){
+    var R = 6378137; //Earth's mean radius in meter
+    var dLat = this.rad(targetLocation.coordinates._lat - myLocation.coordinates._lat);
+    var dLong = this.rad(targetLocation.coordinates._long - myLocation.coordinates._long);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.rad(myLocation.coordinates._lat)) * Math.cos(this.rad(targetLocation.coordinates._lat)) *
+      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+
+  }
+
+  rad(x:number){
+    return x * Math.PI / 180;
+  }
+
 
 
 }
+
+
