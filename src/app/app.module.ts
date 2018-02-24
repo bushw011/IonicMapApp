@@ -17,7 +17,6 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 
 import * as firebase from 'firebase';
 
-
 AngularFirestoreModule.enablePersistence();
 firebase.initializeApp(environment.firebase);
 

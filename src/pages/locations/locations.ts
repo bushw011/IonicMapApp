@@ -36,7 +36,6 @@ export class LocationsPage {
 
     console.log('ionViewDidLoad LocationsPage');
     this.initMap();
-
   }
 
   ionViewDidEnter() {
@@ -76,14 +75,22 @@ export class LocationsPage {
         let myMarker = new google.maps.Marker({
           position: pos,
           map: this.map,
-          title: 'user location'
+          title: 'user location',
+          icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+            new google.maps.Size(22,22),
+            new google.maps.Point(0,18),
+            new google.maps.Point(11,11)),
+          shadow: null,
+          zIndex: 999
         });
+
       });
     }
     else{
       console.log('browser does not support geolocation')
     }
   }
+
 
   public setMarkers(locations: Location[]){
     for(var i = 0; i < locations.length;i++){
