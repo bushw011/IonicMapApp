@@ -20,7 +20,8 @@ export class LocationsPage {
   map: any;
   locationObservable: Observable<Location[]>;
   locationList: Location[];
-
+  private userLat: number;
+  private userLong: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,7 +36,17 @@ export class LocationsPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad LocationsPage');
-    this.initMap();
+    this.getUserLocation();
+    //this.initMap();
+  }
+
+  private getUserLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.userLat = position.coords.latitude;
+        this.userLong = position.coords.longitude;
+      })
+    }
   }
 
   ionViewDidEnter() {

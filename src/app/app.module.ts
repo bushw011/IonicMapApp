@@ -14,6 +14,7 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {LocationsPage} from "../pages/locations/locations";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireAuthModule} from "angularfire2/auth";
+import { AgmCoreModule} from '@agm/core';
 
 import * as firebase from 'firebase';
 
@@ -31,6 +32,9 @@ firebase.initializeApp(environment.firebase);
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsKey
+    }),
     AngularFirestoreModule,
     AngularFireAuthModule
   ],

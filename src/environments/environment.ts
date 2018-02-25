@@ -8,5 +8,7 @@ export const environment = {
     projectId: "ionicmapapp-d56b5",
     storageBucket: "ionicmapapp-d56b5.appspot.com",
     messagingSenderId: "176683947764"
-  }
+  },
+
+  googleMapsKey: 'AIzaSyAckROqQLLWtRnJgM0jACgREJp9iZ1jxTY'
 };

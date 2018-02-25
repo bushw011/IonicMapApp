@@ -12,9 +12,14 @@
 </ion-content>
 
 <ion-content>
-  <div #map id="map">
-
-  </div>
+  <agm-map [latitude]="userLat" [longitude]="userLong">
+    <agm-marker [latitude]="userLat" [longitude]="userLong" [iconUrl]="'assets/imgs/mobileimgs2.png'">
+      <agm-info-window>
+        <h3><strong>Hello!</strong></h3>
+        <p>You are right here!</p>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
 
   <div *ngIf="locationList?.length > 0; else noLocations" class="content">
     <ion-scroll scrollY="true" style="height: 200px">
