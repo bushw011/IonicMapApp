@@ -22,11 +22,14 @@ export class LocationsPage {
   locationList: Location[];
   private userLat: number;
   private userLong: number;
+  markers: any;
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
-              public db: AngularFirestore
+              public db: AngularFirestore,
+              private locationService: LocationService
               ) {
     this.locationObservable = this.db.collection('Locations').valueChanges();
 
@@ -37,6 +40,8 @@ export class LocationsPage {
 
     console.log('ionViewDidLoad LocationsPage');
     this.getUserLocation();
+    this.locationService.hits.subscribe(hits => this.markers = hits);
+
     //this.initMap();
   }
 
@@ -45,7 +50,9 @@ export class LocationsPage {
       navigator.geolocation.getCurrentPosition(position => {
         this.userLat = position.coords.latitude;
         this.userLong = position.coords.longitude;
-      })
+
+        this.locationService.getLocations(500, [this.userLat, this.userLong])
+      });
     }
   }
 
