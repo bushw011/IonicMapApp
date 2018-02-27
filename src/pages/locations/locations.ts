@@ -32,7 +32,18 @@ export class LocationsPage {
               private locationService: LocationService
               ) {
     this.locationObservable = this.db.collection('Locations').valueChanges();
-
+    let dummyPoints = [
+      [37.9, -122.1],
+      [38.7, -122.2],
+      [38.1, -122.3],
+      [38.3, -122.0],
+      [38.7, -122.1]
+    ];
+    dummyPoints.forEach((val,idx)=>{
+      let name = 'dummy-location-'+idx;
+      console.log(idx);
+      this.locationService.setLocation(name,val);
+    })
 
   }
 

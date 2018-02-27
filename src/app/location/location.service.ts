@@ -13,7 +13,6 @@ export class LocationService {
 
   dbRef: any;
   geoFire: any;
-  firebaseRef: any;
 
 
   hits = new BehaviorSubject([]);
