@@ -4,6 +4,7 @@ import {Location} from "../../app/location/location";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {LocationService} from "../../app/location/location.service";
+import { AlertController } from "ionic-angular";
 
 declare var google;
 
@@ -28,22 +29,12 @@ export class LocationsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
+              private alertCtrl: AlertController,
               public db: AngularFirestore,
               private locationService: LocationService
               ) {
     this.locationObservable = this.db.collection('Locations').valueChanges();
-    let dummyPoints = [
-      [37.9, -122.1],
-      [38.7, -122.2],
-      [38.1, -122.3],
-      [38.3, -122.0],
-      [38.7, -122.1]
-    ];
-    dummyPoints.forEach((val,idx)=>{
-      let name = 'dummy-location-'+idx;
-      console.log(idx);
-      this.locationService.setLocation(name,val);
-    })
+
 
   }
 
@@ -54,6 +45,57 @@ export class LocationsPage {
     this.locationService.hits.subscribe(hits => this.markers = hits);
 
     //this.initMap();
+  }
+
+  createLocation() {
+    let alert = this.alertCtrl.create({
+      title: 'Add New Location',
+      message: 'Please enter in the appropriate information',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Location Name'
+        },
+        {
+          name: 'description',
+          placeholder: 'Location Description'
+        },
+        {
+          name: 'latitude',
+          type: 'number',
+          placeholder: 'latitude'
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          placeholder: 'longitude'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data =>{
+            console.log(data);
+          }
+        },
+        {
+          text: 'Add Location',
+          handler: data => {
+            this.seedDB(data.title, data.description, data.latitude, data.longitude);
+          }
+        }
+
+      ]
+    });
+    alert.present();
+  }
+
+  private seedDB(name, description, latitude, longitude) {
+    console.log(name);
+    let coords = [+latitude,+longitude];
+    console.log(coords);
+    this.locationService.setLocation(name,coords);
   }
 
   private getUserLocation() {

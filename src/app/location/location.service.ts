@@ -25,8 +25,9 @@ export class LocationService {
 
 
   // Not sure if I'm gonna need this specifically for this app, but during development it can't hurt to have a client-side means of adding locations to the database
-  setLocation(key:string, coords: Array<number>) {
-    this.geoFire.set(key,coords)
+  setLocation(name:string, coords: Array<number>) {
+    console.log('eyyy');
+    this.geoFire.set(name,coords)
       .then(_ => console.log('location updated'))
       .catch(err => console.log(err))
   }
