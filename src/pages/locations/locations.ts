@@ -114,7 +114,6 @@ export class LocationsPage {
     this.getLocations().subscribe(locations =>{
       console.log(locations);
       this.locationList = locations;
-      this.setMarkers(locations);
     });
 
   }
@@ -124,63 +123,9 @@ export class LocationsPage {
   }
 
 
-  initMap(){
-    let latLng = new google.maps.LatLng(37.24804,-115.800155);
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(position => {
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.map.setCenter(pos);
-        let myMarker = new google.maps.Marker({
-          position: pos,
-          map: this.map,
-          title: 'user location',
-          icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-            new google.maps.Size(22,22),
-            new google.maps.Point(0,18),
-            new google.maps.Point(11,11)),
-          shadow: null,
-          zIndex: 999
-        });
-
-      });
-    }
-    else{
-      console.log('browser does not support geolocation')
-    }
-  }
 
 
-  public setMarkers(locations: Location[]){
-    for(var i = 0; i < locations.length;i++){
-      this.addMarker(locations[i]);
-    }
-    return locations;
-  }
 
-  addMarker(location: Location){
-    let newMarker = new google.maps.Marker({
-      position: {
-        lat: location.coordinates._lat,
-        lng: location.coordinates._long
-      },
-      map: this.map,
-      title: 'Selected location marker'
-    });
-
-  }
 
   /* This function uses the Haversine formula to calculate distance between two GeoPoints,
   which is basically a nice alternative to using Google's API.
