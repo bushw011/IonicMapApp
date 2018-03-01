@@ -44,7 +44,6 @@ export class LocationsPage {
     this.getUserLocation();
     this.locationService.hits.subscribe(hits => this.markers = hits);
 
-    //this.initMap();
   }
 
   createLocation() {
