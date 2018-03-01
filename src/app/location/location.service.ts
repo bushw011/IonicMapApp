@@ -11,25 +11,27 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 @Injectable()
 export class LocationService {
 
-  dbRef: any;
+  geoRef: any;
+  locRef: any;
   geoFire: any;
 
 
   hits = new BehaviorSubject([]);
   constructor(public db: AngularFireDatabase) {
-    this.dbRef = this.db.list('/locations');
-    this.geoFire = new GeoFire(this.dbRef.query.ref);
-
+    this.geoRef = this.db.list('/geoData');
+    this.locRef = this.db.list('/locationData');
+    this.geoFire = new GeoFire(this.geoRef.query.ref);
 
   }
 
 
   // Not sure if I'm gonna need this specifically for this app, but during development it can't hurt to have a client-side means of adding locations to the database
-  setLocation(name:string, coords: Array<number>) {
+  setLocation(name:string,description:string, coords: Array<number>) {
     console.log('eyyy');
     this.geoFire.set(name,coords)
       .then(_ => console.log('location updated'))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+    this.locRef.set(name,description);
   }
 
   // Queries the database for nearby locations, and then maps to BehaviorSubject

@@ -91,11 +91,11 @@ export class LocationsPage {
     alert.present();
   }
 
-  private seedDB(name, description, latitude, longitude) {
+  private seedDB(name:string, description:string, latitude, longitude) {
     console.log(name);
     let coords = [+latitude,+longitude];
     console.log(coords);
-    this.locationService.setLocation(name,coords);
+    this.locationService.setLocation(name,description,coords);
   }
 
   private getUserLocation() {
