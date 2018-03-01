@@ -24,7 +24,7 @@ export class LocationsPage {
   private userLat: number;
   private userLong: number;
   markers: any;
-
+  newLocationID: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -82,7 +82,8 @@ export class LocationsPage {
         {
           text: 'Add Location',
           handler: data => {
-            this.seedDB(data.title, data.description, data.latitude, data.longitude);
+            let coords = [+data.latitude,+data.longitude];
+            this.addLocation(data.title, data.description,coords);
           }
         }
 
@@ -91,11 +92,15 @@ export class LocationsPage {
     alert.present();
   }
 
-  private seedDB(name:string, description:string, latitude, longitude) {
+  private addLocation(name:string, description:string, coords:Array<number>) {
     console.log(name);
-    let coords = [+latitude,+longitude];
     console.log(coords);
-    this.locationService.setLocation(name,description,coords);
+    this.newLocationID = this.generateID(6).toString();
+    this.locationService.setLocation(this.newLocationID,name,description,coords);
+  }
+
+  generateID(digits: number){
+    return Math.floor(Math.random() * parseInt('8' + '9'.repeat(digits - 1)) + parseInt('1' + '0'.repeat(digits - 1)));
   }
 
   private getUserLocation() {

@@ -15,7 +15,6 @@ export class LocationService {
   locRef: any;
   geoFire: any;
 
-
   hits = new BehaviorSubject([]);
   constructor(public db: AngularFireDatabase) {
     this.geoRef = this.db.list('/geoData');
@@ -26,13 +25,18 @@ export class LocationService {
 
 
   // Not sure if I'm gonna need this specifically for this app, but during development it can't hurt to have a client-side means of adding locations to the database
-  setLocation(name:string,description:string, coords: Array<number>) {
+  setLocation(ID, name:string,description:string, coords: Array<number>) {
     console.log('eyyy');
-    this.geoFire.set(name,coords)
+    this.geoFire.set(ID,coords)
       .then(_ => console.log('location updated'))
       .catch(err => console.log(err));
-    this.locRef.set(name,description);
+    this.db.object('/locationData/'+ID).update({
+      name:name,
+      description:description
+    });
   }
+
+
 
   // Queries the database for nearby locations, and then maps to BehaviorSubject
   getLocations(radius: number, coords: Array<number>) {
@@ -47,7 +51,7 @@ export class LocationService {
         };
 
         let currentHits = this.hits.value;
-        currentHits.push(hit)
+        currentHits.push(hit);
       })
   }
 
