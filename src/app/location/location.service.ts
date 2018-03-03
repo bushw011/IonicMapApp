@@ -14,7 +14,7 @@ export class LocationService {
   geoRef: any;
   locRef: any;
   geoFire: any;
-
+  locationObservable: Observable<Location[]>;
   hits = new BehaviorSubject([]);
   constructor(public db: AngularFireDatabase) {
     this.geoRef = this.db.list('/geoData');
@@ -47,11 +47,14 @@ export class LocationService {
       .on('key_entered', (key, location, distance) => {
         let hit = {
           location: location,
-          distance: distance
+          distance: distance,
+          key: key
         };
 
         let currentHits = this.hits.value;
         currentHits.push(hit);
+
+
       })
   }
 

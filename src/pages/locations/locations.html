@@ -24,8 +24,7 @@
                 [longitude]="marker.location[1]">
       <agm-info-window>
         <h3><strong>Location Details</strong></h3>
-
-        <p>You are {{ marker.distance }} kilometers from this point</p>
+        <p>Marker: {{marker.key}} is {{ marker.distance }} kilometers from you</p>
       </agm-info-window>
     </agm-marker>
   </agm-map>

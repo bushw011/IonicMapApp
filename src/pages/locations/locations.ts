@@ -108,7 +108,8 @@ export class LocationsPage {
         this.userLat = position.coords.latitude;
         this.userLong = position.coords.longitude;
 
-        this.locationService.getLocations(500, [this.userLat, this.userLong])
+        this.locationService.getLocations(500, [this.userLat, this.userLong]);
+        console.log(this.locationService.hits);
       });
     }
   }
