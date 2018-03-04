@@ -26,6 +26,9 @@ export class LocationsPage {
   markers: any;
   newLocationID: string;
 
+  locationName: string;
+  locationDescription: string;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
@@ -112,6 +115,14 @@ export class LocationsPage {
         console.log(this.locationService.hits);
       });
     }
+  }
+
+  private getLocationData(ID){
+    this.locationService.getLocationData(ID).subscribe(object => {
+      console.log(object.name,object.description);
+      this.locationName = object.name;
+      this.locationDescription = object.description;
+    });
   }
 
   ionViewDidEnter() {

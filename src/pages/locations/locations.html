@@ -21,10 +21,11 @@
     </agm-marker>
     <agm-marker *ngFor="let marker of markers"
                 [latitude]="marker.location[0]"
-                [longitude]="marker.location[1]">
+                [longitude]="marker.location[1]" (markerClick)="getLocationData(marker.ID)">
       <agm-info-window>
-        <h3><strong>Location Details</strong></h3>
-        <p>Marker: {{marker.key}} is {{ marker.distance }} kilometers from you</p>
+        <h3><strong>{{locationName}}</strong></h3>
+        <p>Marker: {{marker.ID}} is {{ marker.distance }} kilometers from you</p>
+        <p>{{locationDescription}}</p>
       </agm-info-window>
     </agm-marker>
   </agm-map>
