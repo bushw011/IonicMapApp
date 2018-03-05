@@ -15,12 +15,13 @@ export class LocationService {
   locRef: any;
   geoFire: any;
   locationObservable: Observable<Location[]>;
+  locationIDs: string[] = [];
   hits = new BehaviorSubject([]);
-  locationInfo: Observable<any>;
+
+
 
   constructor(public db: AngularFireDatabase) {
     this.geoRef = this.db.list('/geoData');
-    this.locRef = this.db.list('/locationData');
     this.geoFire = new GeoFire(this.geoRef.query.ref);
 
   }
@@ -55,15 +56,17 @@ export class LocationService {
 
         let currentHits = this.hits.value;
         currentHits.push(hit);
-
+        currentHits.forEach((hit)=>{
+          if(this.locationIDs.indexOf(hit.ID)==-1)
+          this.locationIDs.push(hit.ID);
+          console.log(this.locationIDs);
+        })
 
       });
 
   }
-  getLocationData(ID: string): Observable<any>{
-    return this.locationInfo = this.db.object('/locationData/'+ID).valueChanges();
-
-
+  getLocationData(ID: string): Observable<Location>{
+    return this.db.object('/locationData/'+ID).valueChanges();
   }
 
 }

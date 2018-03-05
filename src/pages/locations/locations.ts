@@ -5,6 +5,8 @@ import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firesto
 import {Observable} from "rxjs/Observable";
 import {LocationService} from "../../app/location/location.service";
 import { AlertController } from "ionic-angular";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {HomePage} from "../home/home";
 
 declare var google;
 
@@ -20,14 +22,16 @@ export class LocationsPage {
   @ViewChild('map') mapElement;
   map: any;
   locationObservable: Observable<Location[]>;
-  locationList: Location[];
+  locationList: Location[] = [];
+  locationIDs: string[] = [];
   private userLat: number;
   private userLong: number;
-  markers: any;
   newLocationID: string;
-
+  markers: any;
   locationName: string;
   locationDescription: string;
+
+  home = HomePage;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -36,16 +40,35 @@ export class LocationsPage {
               public db: AngularFirestore,
               private locationService: LocationService
               ) {
+    this.navCtrl = navCtrl;
     this.locationObservable = this.db.collection('Locations').valueChanges();
 
 
   }
 
+  navigateHome(){
+    this.navCtrl.remove(this.navCtrl.last().index)
+      .then(()=> {
+        this.navCtrl.setRoot(this.home);
+      });
+  }
+
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad LocationsPage');
+    this.locationIDs = [];
+
     this.getUserLocation();
-    this.locationService.hits.subscribe(hits => this.markers = hits);
+    this.locationService.hits.subscribe(hits => {
+      this.markers = hits;
+      this.markers.forEach((marker)=> {
+        if(this.locationIDs.indexOf(marker.ID)==-1) {
+          this.locationIDs.push(marker.ID);
+        }
+        console.log(this.markers);
+        console.log(this.locationIDs);
+      });
+    });
 
   }
 
@@ -123,14 +146,19 @@ export class LocationsPage {
       this.locationName = object.name;
       this.locationDescription = object.description;
     });
+    console.log(this.locationIDs[0])
+
+
   }
 
   ionViewDidEnter() {
     console.log('did enter');
-    this.getLocations().subscribe(locations =>{
+    /*this.getLocations().subscribe(locations =>{
       console.log(locations);
       this.locationList = locations;
-    });
+    });*/
+
+
 
   }
 
