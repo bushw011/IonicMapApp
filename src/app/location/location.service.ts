@@ -14,8 +14,9 @@ export class LocationService {
   geoRef: any;
   locRef: any;
   geoFire: any;
-  locationObservable: Observable<Location[]>;
+  locationObservable: Array<Observable<Location>> = [];
   locationIDs: string[] = [];
+  locationList: Location[] = [];
   hits = new BehaviorSubject([]);
 
 
@@ -60,7 +61,16 @@ export class LocationService {
           if(this.locationIDs.indexOf(hit.ID)==-1)
           this.locationIDs.push(hit.ID);
           console.log(this.locationIDs);
-        })
+        });
+
+        this.locationIDs.forEach(
+          (ID)=>{
+            this.getLocationData(ID).subscribe((location) => {
+              this.locationList.push(location);
+            });
+
+        });
+        console.log(this.locationList);
 
       });
 
