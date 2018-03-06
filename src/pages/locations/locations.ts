@@ -61,15 +61,9 @@ export class LocationsPage {
     this.getUserLocation();
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
-      this.markers.forEach((marker)=> {
-        if(this.locationIDs.indexOf(marker.ID)==-1) {
-          this.locationIDs.push(marker.ID);
-        }
-        console.log(this.markers);
-        console.log(this.locationIDs);
-      });
     });
-
+    this.locationList = this.locationService.locationList;
+    console.log(this.locationList);
   }
 
   createLocation() {
@@ -163,7 +157,7 @@ export class LocationsPage {
   }
 
   public getLocations(){
-    return this.locationObservable;
+    return this.locationService.locationList;
   }
 
 
