@@ -17,7 +17,7 @@ export class LocationService {
   locationObservable: Array<Observable<Location>> = [];
   locationList: Location[] = [];
   hits = new BehaviorSubject([]);
-
+  newLocation: Location;
 
 
   constructor(public db: AngularFireDatabase) {
@@ -43,25 +43,39 @@ export class LocationService {
 
   // Queries the database for nearby locations, and then maps to BehaviorSubject
   getLocations(radius: number, coords: Array<number>) {
+    let newName = '';
+    let newDescription = '';
+
     this.geoFire.query({
       center: coords,
       radius: radius
     })
       .on('key_entered', (key, location, distance) => {
+
+
+        console.log(newName);
         let hit = {
           location: location,
           distance: distance,
-          ID: key
+          ID: key,
+          name: '',
+          description: ''
         };
-
+        console.log(hit.name);
         let currentHits = this.hits.value;
-        currentHits.push(hit);
+
 
           this.getLocationData(hit.ID).subscribe(
             (location) =>{
+              newName = location.name;
               this.locationList.push(location);
+              hit.name = location.name;
+              hit.description = location.description;
+              currentHits.push(hit);
             }
           );
+
+
 
         console.log(this.locationList);
 

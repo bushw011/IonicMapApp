@@ -23,7 +23,7 @@
                 [latitude]="marker.location[0]"
                 [longitude]="marker.location[1]" (markerClick)="getLocationData(marker.ID)">
       <agm-info-window>
-        <h3><strong>{{locationName}}</strong></h3>
+        <h3><strong>{{marker.name}}</strong></h3>
         <p>Marker: {{marker.ID}} is {{ marker.distance }} kilometers from you</p>
         <p>{{locationDescription}}</p>
       </agm-info-window>
@@ -31,11 +31,11 @@
   </agm-map>
   <button ion-button (click)="navigateHome()">Go Back To Home Page</button>
 
-  <div *ngIf="locationList?.length > 0; else noLocations" class="content">
+  <div *ngIf="markers?.length > 0; else noLocations" class="content">
     <ion-scroll scrollY="true" style="height: 200px">
       <ion-list class="location-list">
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
-        <button ion-item *ngFor="let location of locationList"><strong>{{location.name}}: </strong>{{location.description}}</button>
+        <button ion-item *ngFor="let marker of markers"><strong>{{marker.name}}: </strong>{{marker.description}}</button>
       </ion-list>
     </ion-scroll>
   </div>
