@@ -56,13 +56,13 @@ export class LocationService {
 
         let currentHits = this.hits.value;
         currentHits.push(hit);
-        currentHits.forEach((hit)=>{
+
           this.getLocationData(hit.ID).subscribe(
             (location) =>{
               this.locationList.push(location);
             }
-          )
-        });
+          );
+
         console.log(this.locationList);
 
       });
