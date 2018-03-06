@@ -12,12 +12,10 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export class LocationService {
 
   geoRef: any;
-  locRef: any;
   geoFire: any;
   locationObservable: Array<Observable<Location>> = [];
   locationList: Location[] = [];
   hits = new BehaviorSubject([]);
-  newLocation: Location;
 
 
   constructor(public db: AngularFireDatabase) {

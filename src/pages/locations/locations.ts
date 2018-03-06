@@ -41,7 +41,6 @@ export class LocationsPage {
               private locationService: LocationService
               ) {
     this.navCtrl = navCtrl;
-    this.locationObservable = this.db.collection('Locations').valueChanges();
 
 
   }
@@ -62,8 +61,6 @@ export class LocationsPage {
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
     });
-    this.locationList = this.locationService.locationList;
-    console.log(this.locationList);
   }
 
   createLocation() {
@@ -134,25 +131,9 @@ export class LocationsPage {
     }
   }
 
-  private getLocationData(ID){
-    this.locationService.getLocationData(ID).subscribe(object => {
-      console.log(object.name,object.description);
-      this.locationName = object.name;
-      this.locationDescription = object.description;
-    });
-    console.log(this.locationIDs[0])
 
-
-  }
 
   ionViewDidEnter() {
-    console.log('did enter');
-    /*this.getLocations().subscribe(locations =>{
-      console.log(locations);
-      this.locationList = locations;
-    });*/
-
-
 
   }
 
