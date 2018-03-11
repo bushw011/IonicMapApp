@@ -12,6 +12,7 @@ import { LocationService } from "./location/location.service";
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {LocationsPage} from "../pages/locations/locations";
+import {EmailFormPage} from "../pages/email-form/email-form";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import { AgmCoreModule} from '@agm/core';
@@ -25,7 +26,8 @@ firebase.initializeApp(environment.firebase);
   declarations: [
     MyApp,
     HomePage,
-    LocationsPage
+    LocationsPage,
+    EmailFormPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ firebase.initializeApp(environment.firebase);
   entryComponents: [
     MyApp,
     LocationsPage,
-    HomePage
+    HomePage,
+    EmailFormPage
   ],
   providers: [
     StatusBar,

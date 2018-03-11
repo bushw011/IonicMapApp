@@ -14,5 +14,23 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" floating>First Name</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Last Name</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select interface="popover" [(ngModel)]="category" >
+        <ion-option value="uhhh">uhhh</ion-option>
+        <ion-option value="something">something</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
