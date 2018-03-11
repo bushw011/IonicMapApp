@@ -45,11 +45,11 @@ export class LocationsPage {
 
   }
 
-  navigateHome(){
-    this.navCtrl.remove(this.navCtrl.last().index)
-      .then(()=> {
-        this.navCtrl.setRoot(this.home);
-      });
+
+
+  ionViewDidLeave(){
+    this.markers = [];
+    this.locationService.hits = new BehaviorSubject([]);
   }
 
   ionViewDidLoad() {
