@@ -2,8 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-
+import { FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AngularFireDatabase} from "angularfire2/database";
 import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
@@ -11,6 +11,8 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
 
   rootPage:any = HomePage;
+  form: FormGroup;
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
