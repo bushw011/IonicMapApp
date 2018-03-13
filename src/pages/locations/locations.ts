@@ -111,12 +111,12 @@ export class LocationsPage {
   private addLocation(name:string, description:string, coords:Array<number>) {
     console.log(name);
     console.log(coords);
-    this.newLocationID = this.generateID(6).toString();
+    this.newLocationID = this.generateID();
     this.locationService.setLocation(this.newLocationID,name,description,coords);
   }
 
-  generateID(digits: number){
-    return Math.floor(Math.random() * parseInt('8' + '9'.repeat(digits - 1)) + parseInt('1' + '0'.repeat(digits - 1)));
+  private generateID(): string {
+    return Math.random().toString(36).substr(2,9);
   }
 
   private getUserLocation() {
