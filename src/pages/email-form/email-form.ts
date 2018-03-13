@@ -12,6 +12,7 @@ export class EmailFormPage {
 
   firstName: string = '';
   lastName: string = '';
+  email: string = '';
   category: string = 'none';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
@@ -23,19 +24,24 @@ export class EmailFormPage {
   }
 
   private submitEmail(){
-    console.log(this.firstName, this.lastName, this.category);
-    var ID = this.generateID();
-    console.log(ID);
-    this.db.object('/forms/'+ID).update({
-      name: this.firstName + ' ' + this.lastName,
-      category: this.category
-    })
-      .then(success => {
-        console.log('form submitted');
+    if(this.firstName!=''&&this.lastName!=''&&this.category!='none'){
+      console.log(this.firstName, this.lastName, this.category);
+      var ID = this.generateID();
+      console.log(ID);
+      this.db.object('/forms/' + ID).update({
+        name: this.firstName + ' ' + this.lastName,
+        category: this.category
       })
-      .catch( err => {
-        console.log(err);
-      });
+        .then(success => {
+          console.log('form submitted');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    else{
+      console.log('Please complete all fields');
+    }
   }
 
   private generateID(): string {

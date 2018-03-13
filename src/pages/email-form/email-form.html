@@ -18,12 +18,17 @@
       <ion-input type="text" value="" [(ngModel)]="lastName"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" value="" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>Category</ion-label>
       <ion-select interface="popover" [(ngModel)]="category" >
-        <ion-option value="uhhh">uhhh</ion-option>
-        <ion-option value="something">something</ion-option>
+        <ion-option value="Home">Home</ion-option>
+        <ion-option value="Auto">Auto</ion-option>
+        <ion-option value="Home & Auto">Home & Auto</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
-  <button ion-item (click)="submitEmail()" [disabled]="category=='none' || firstName=='' || lastName==''">Submit</button>
+  <button ion-button full outline (click)="submitEmail()" [disabled]="category=='none' || firstName=='' || lastName==''">Submit</button>
 </ion-content>
