@@ -16,7 +16,6 @@ import {EmailFormPage} from "../pages/email-form/email-form";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import { AgmCoreModule} from '@agm/core';
-import { ReactiveFormsModule} from "@angular/forms";
 
 
 import * as firebase from 'firebase';
@@ -29,8 +28,7 @@ firebase.initializeApp(environment.firebase);
     MyApp,
     HomePage,
     LocationsPage,
-    EmailFormPage,
-    ReactiveFormsModule
+    EmailFormPage
   ],
   imports: [
     BrowserModule,

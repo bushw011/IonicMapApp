@@ -16,7 +16,7 @@ exports.firestoreEmail = functions.firestore
 
 const db = admin.firestore();
 
-return db.collection('users').doc(userId)
+return db.collection('contact-forms').doc(userId)
   .get()
   .then(doc => {
 
