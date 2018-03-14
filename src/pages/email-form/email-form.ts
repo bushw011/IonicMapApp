@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
 
 
@@ -17,7 +17,7 @@ export class EmailFormPage {
   email: string = '';
   category: string = 'none';
   phoneNumber: string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public alertCtrl: AlertController) {
     this.masks = {
       phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       cardNumber: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -31,6 +31,7 @@ export class EmailFormPage {
   }
 
   public removeTrailing() {
+    if(this.phoneNumber.length>14)
     this.phoneNumber = this.phoneNumber.substring(0,14);
   }
 
