@@ -16,7 +16,7 @@ import {EmailFormPage} from "../pages/email-form/email-form";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import { AgmCoreModule} from '@agm/core';
-
+import {TextMaskModule} from "angular2-text-mask";
 
 import * as firebase from 'firebase';
 
@@ -33,6 +33,7 @@ firebase.initializeApp(environment.firebase);
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    TextMaskModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({

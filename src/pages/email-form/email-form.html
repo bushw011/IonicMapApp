@@ -22,6 +22,10 @@
       <ion-input type="text" value="" [(ngModel)]="email"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber" [textMask]="{mask: masks.phoneNumber}"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>Category</ion-label>
       <ion-select interface="popover" [(ngModel)]="category" >
         <ion-option value="Home">Home</ion-option>

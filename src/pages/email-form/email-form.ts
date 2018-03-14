@@ -10,13 +10,20 @@ import { AngularFireDatabase } from "angularfire2/database";
 })
 export class EmailFormPage {
 
+  masks: any;
+
   firstName: string = '';
   lastName: string = '';
   email: string = '';
   category: string = 'none';
-
+  phoneNumber: any = '';
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
-
+    this.masks = {
+      phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+      cardNumber: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+      cardExpiry: [/[0-1]/, /\d/, '/', /[1-2]/, /\d/],
+      orderCode: [/[a-zA-z]/, ':', /\d/, /\d/, /\d/, /\d/]
+    };
   }
 
   ionViewDidLoad() {
@@ -24,13 +31,19 @@ export class EmailFormPage {
   }
 
   private submitEmail(){
+    let unmaskedData = {
+      phoneNumber: this.phoneNumber.replace(/\D+/g, '')
+    };
+    console.log(unmaskedData);
     if(this.firstName!=''&&this.lastName!=''&&this.category!='none'){
       console.log(this.firstName, this.lastName, this.category);
       var ID = this.generateID();
       console.log(ID);
       this.db.object('/forms/' + ID).update({
         name: this.firstName + ' ' + this.lastName,
-        category: this.category
+        category: this.category,
+        phoneNumber: unmaskedData.phoneNumber,
+        email: this.email
       })
         .then(success => {
           console.log('form submitted');
