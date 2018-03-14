@@ -72,5 +72,30 @@ export class EmailFormPage {
     return Math.random().toString(36).substr(2,9);
   }
 
+  showPrompt() {
+    let prompt = this.alertCtrl.create({
+      title: 'Almost Done!',
+      subTitle: 'Please confirm the information below',
+      message: "Name: " + this.firstName + ' ' +this.lastName,
+
+
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
 
 }
