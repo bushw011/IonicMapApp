@@ -16,7 +16,7 @@ export class EmailFormPage {
   lastName: string = '';
   email: string = '';
   category: string = 'none';
-  phoneNumber: any = '';
+  phoneNumber: string = '';
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
     this.masks = {
       phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -30,10 +30,19 @@ export class EmailFormPage {
     console.log('ionViewDidLoad EmailFormPage');
   }
 
+  public removeTrailing() {
+    this.phoneNumber = this.phoneNumber.substring(0,14);
+  }
+
+
   private submitEmail(){
     let unmaskedData = {
       phoneNumber: this.phoneNumber.replace(/\D+/g, '')
     };
+    if(unmaskedData.phoneNumber.length>10){
+      unmaskedData.phoneNumber = unmaskedData.phoneNumber.substring(0,10);
+    }
+
     console.log(unmaskedData);
     if(this.firstName!=''&&this.lastName!=''&&this.category!='none'){
       console.log(this.firstName, this.lastName, this.category);
@@ -56,6 +65,7 @@ export class EmailFormPage {
       console.log('Please complete all fields');
     }
   }
+
 
   private generateID(): string {
     return Math.random().toString(36).substr(2,9);
