@@ -84,8 +84,7 @@ export class EmailFormPage {
       `<p>Seeking ` +this.category+' insurance assistance' +
       `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>`,
 
-
-
+      
       buttons: [
         {
           text: 'Cancel',
@@ -104,15 +103,7 @@ export class EmailFormPage {
     prompt.present();
   }
 
-  homeOwner(bool:boolean):string{
-    console.log(this.isHomeOwner);
-    if(this.isHomeOwner==false){
-      return "No";
-    }
-    else{
-      return "Yes";
-    }
-  }
+
 
 
 }
