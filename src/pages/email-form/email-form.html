@@ -33,6 +33,13 @@
         <ion-option value="Home & Auto">Home & Auto</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label>Do you own a home?</ion-label>
+      <ion-select interface="popover" [(ngModel)]="isHomeOwner">
+        <ion-option value=true>Yes</ion-option>
+        <ion-option value=false>No</ion-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
   <button ion-button full outline (click)="showPrompt()" [disabled]="category=='none' || firstName=='' || lastName==''">Submit</button>
 </ion-content>

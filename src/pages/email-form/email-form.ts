@@ -16,7 +16,9 @@ export class EmailFormPage {
   lastName: string = '';
   email: string = '';
   category: string = 'none';
-  phoneNumber: string = '';
+  phoneNumber: string = ''
+  isHomeOwner: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public alertCtrl: AlertController) {
     this.masks = {
       phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
