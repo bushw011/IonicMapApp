@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
+import {LocationsPage} from "../locations/locations";
 
 
 @IonicPage()
@@ -9,6 +10,8 @@ import { AngularFireDatabase } from "angularfire2/database";
   templateUrl: 'email-form.html',
 })
 export class EmailFormPage {
+
+  locations = LocationsPage;
 
   masks: any;
 
@@ -55,7 +58,8 @@ export class EmailFormPage {
         name: this.firstName + ' ' + this.lastName,
         category: this.category,
         phoneNumber: unmaskedData.phoneNumber,
-        email: this.email
+        email: this.email,
+        isHomeOwner: this.isHomeOwner
       })
         .then(success => {
           console.log('form submitted');
@@ -84,7 +88,7 @@ export class EmailFormPage {
       `<p>Seeking ` +this.category+' insurance assistance' +
       `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>`,
 
-      
+
       buttons: [
         {
           text: 'Cancel',
@@ -96,6 +100,8 @@ export class EmailFormPage {
           text: 'Send',
           handler: data => {
             console.log('Saved clicked');
+            this.submitEmail();
+            this.navCtrl.push(this.locations)
           }
         }
       ]
