@@ -76,7 +76,11 @@ export class EmailFormPage {
     let prompt = this.alertCtrl.create({
       title: 'Almost Done!',
       subTitle: 'Please confirm the information below',
-      message: "Name: " + this.firstName + ' ' +this.lastName,
+      message: `<strong>Name: </strong>` + this.firstName + ' ' +this.lastName
+      + `<p><strong>Email: </strong>`+this.email+`</p>` +
+      `<p><strong>Phone Number: </strong>`+this.phoneNumber+`</p>` +
+      `<p>Seeking ` +this.category+' insurance assistance',
+
 
 
       buttons: [
@@ -87,7 +91,7 @@ export class EmailFormPage {
           }
         },
         {
-          text: 'Save',
+          text: 'Send',
           handler: data => {
             console.log('Saved clicked');
           }
