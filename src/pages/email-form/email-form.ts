@@ -16,8 +16,8 @@ export class EmailFormPage {
   lastName: string = '';
   email: string = '';
   category: string = 'none';
-  phoneNumber: string = ''
-  isHomeOwner: boolean;
+  phoneNumber: string = '';
+  isHomeOwner: any='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public alertCtrl: AlertController) {
     this.masks = {
@@ -81,7 +81,8 @@ export class EmailFormPage {
       message: `<strong>Name: </strong>` + this.firstName + ' ' +this.lastName
       + `<p><strong>Email: </strong>`+this.email+`</p>` +
       `<p><strong>Phone Number: </strong>`+this.phoneNumber+`</p>` +
-      `<p>Seeking ` +this.category+' insurance assistance',
+      `<p>Seeking ` +this.category+' insurance assistance' +
+      `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>`,
 
 
 
@@ -101,6 +102,16 @@ export class EmailFormPage {
       ]
     });
     prompt.present();
+  }
+
+  homeOwner(bool:boolean):string{
+    console.log(this.isHomeOwner);
+    if(this.isHomeOwner==false){
+      return "No";
+    }
+    else{
+      return "Yes";
+    }
   }
 
 
