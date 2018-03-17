@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AngularFireDatabase } from "angularfire2/database";
 import {LocationsPage} from "../locations/locations";
-
+import {AngularFirestore} from "angularfire2/firestore";
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class EmailFormPage {
   phoneNumber: string = '';
   isHomeOwner: any='';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public alertCtrl: AlertController) {
     this.masks = {
       phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       cardNumber: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -54,7 +54,7 @@ export class EmailFormPage {
       console.log(this.firstName, this.lastName, this.category);
       var ID = this.generateID();
       console.log(ID);
-      this.db.object('/forms/' + ID).update({
+      this.db.collection('forms/').add({
         name: this.firstName + ' ' + this.lastName,
         category: this.category,
         phoneNumber: unmaskedData.phoneNumber,

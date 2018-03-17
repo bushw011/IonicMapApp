@@ -9,31 +9,32 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 exports.firestoreEmail = functions.firestore
-  .document('contact-forms/{formId}')
+  .document('forms/{formId}')
   .onCreate(event => {
 
-  const userId = event.params.userId;
+  const formId = event.params.formId;
 
-const db = admin.firestore();
+  const db = admin.firestore();
 
-return db.collection('contact-forms').doc(userId)
+return db.collection('forms').doc(formId)
   .get()
   .then(doc => {
 
-  const user = doc.data();
+  const form = doc.data();
 
   const msg = {
     to: 'bushw011@morris.umn.edu',
-    from: 'bushw011@morris.umn.edu',
+    from: 'hello@angularfirebase.com',
     subject:  'New User',
 
     // custom templates
-    templateId: 'your-template-id-1234',
+    templateId: '00e39b13-59f7-45ec-8e8d-5b7ad14b340f',
     substitutionWrappers: ['{{', '}}'],
     substitutions: {
-      name: user.displayName
+      name: form.displayName
       // and other custom properties here
     }
+
   };
 
 return sgMail.send(msg)
