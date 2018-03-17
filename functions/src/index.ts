@@ -15,7 +15,7 @@ exports.firestoreEmail = functions.firestore
   const formId = event.params.formId;
 
   const db = admin.firestore();
-
+  console.log(formId);
 return db.collection('forms').doc(formId)
   .get()
   .then(doc => {
@@ -31,8 +31,11 @@ return db.collection('forms').doc(formId)
     templateId: '00e39b13-59f7-45ec-8e8d-5b7ad14b340f',
     substitutionWrappers: ['{{', '}}'],
     substitutions: {
-      name: form.displayName
-      // and other custom properties here
+      name: form.name,
+      phoneNumber: form.phoneNumber,
+      category: form.category,
+      email: form.email,
+      homeOwner: form.isHomeOwner
     }
 
   };
