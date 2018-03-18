@@ -50,7 +50,7 @@
       <ion-input type="text" placeholder="EX: 2005 Tefla SpicyBoi"  [(ngModel)]="vehicles[i]"></ion-input>
     </ion-item>
     <ion-item>
-      <button  (click)="vehicles.push('')" >List Another Vehicle</button>
+      <button [disabled]="vehicles[vehicles.length-1]==''"  (click)="vehicles.push('')" >List Another Vehicle</button>
       <button (click)="vehicles.pop()" >Remove a Vehicle</button>
     </ion-item>
   </ion-list>

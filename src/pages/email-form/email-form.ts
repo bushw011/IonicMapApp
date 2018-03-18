@@ -23,7 +23,7 @@ export class EmailFormPage {
   phoneNumber: string = '';
   isHomeOwner: any='';
 
-  vehicles: any = ["ddd"];
+  vehicles: any = [""];
   parsedVehicles: string = '';
 
 
@@ -71,7 +71,8 @@ export class EmailFormPage {
         category: this.category,
         phoneNumber: unmaskedData.phoneNumber,
         email: this.email,
-        isHomeOwner: this.isHomeOwner
+        isHomeOwner: this.isHomeOwner,
+        vehicles: this.parsedVehicles
       })
         .then(success => {
           console.log('form submitted');
@@ -92,6 +93,7 @@ export class EmailFormPage {
 
   showPrompt() {
     console.log(this.vehicles);
+    this.parsedVehicles = this.parseVehicles(this.vehicles);
     let prompt = this.alertCtrl.create({
       title: 'Almost Done!',
       subTitle: 'Please confirm the information below',
@@ -99,7 +101,8 @@ export class EmailFormPage {
       + `<p><strong>Email: </strong>`+this.email+`</p>` +
       `<p><strong>Phone Number: </strong>`+this.phoneNumber+`</p>` +
       `<p>Seeking ` +this.category+' insurance assistance' +
-      `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>`,
+      `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>` +
+      `<p><strong>Vehicles Owned: </strong>` + this.parsedVehicles,
 
 
       buttons: [
@@ -127,7 +130,7 @@ export class EmailFormPage {
     for(var i = 0; i < arr.length; i++){
       if(arr[i]!='') {
         str += arr[i];
-        if(i != arr.length-1){
+        if(i != arr.length-1&&arr[i+1]!=''){
           str += ', '
         }
       }

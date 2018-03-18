@@ -35,7 +35,8 @@ return db.collection('forms').doc(formId)
       phoneNumber: form.phoneNumber,
       category: form.category,
       email: form.email,
-      homeOwner: form.isHomeOwner
+      homeOwner: form.isHomeOwner,
+      vehicles: form.vehicles
     }
 
   };
