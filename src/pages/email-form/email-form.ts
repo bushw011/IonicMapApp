@@ -15,6 +15,7 @@ export class EmailFormPage {
 
   masks: any;
 
+
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -22,7 +23,10 @@ export class EmailFormPage {
   phoneNumber: string = '';
   isHomeOwner: any='';
 
-  vehicles: string[] = [''];
+  vehicles: any = ["ddd"];
+  parsedVehicles: string = '';
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public alertCtrl: AlertController) {
     this.masks = {
@@ -33,6 +37,10 @@ export class EmailFormPage {
     };
 
 
+
+  }
+  trackByFn(index, treatment) {
+    return index;
   }
 
   ionViewDidLoad() {
@@ -83,6 +91,7 @@ export class EmailFormPage {
   }
 
   showPrompt() {
+    console.log(this.vehicles);
     let prompt = this.alertCtrl.create({
       title: 'Almost Done!',
       subTitle: 'Please confirm the information below',
@@ -111,6 +120,19 @@ export class EmailFormPage {
       ]
     });
     prompt.present();
+  }
+
+  public parseVehicles(arr:string[]):string{
+    let str: string = '';
+    for(var i = 0; i < arr.length; i++){
+      if(arr[i]!='') {
+        str += arr[i];
+      }
+      if(i != arr.length-1){
+        str += ', '
+      }
+    }
+    return str;
   }
 
 

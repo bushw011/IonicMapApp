@@ -44,15 +44,15 @@
       </ion-select>
     </ion-item>
   </ion-list>
-  <h6>Do you own any vehicles? Please list them below in the order of year, make, and model.</h6>
+  <h6>Do you own any vehicles? Please list them below in the order of year, make, and model. Leave this section blank if you own no vehicles.</h6>
   <ion-list>
-    <ion-item *ngFor="let vehicle of vehicles; let i = index">
-      <ion-input type="text" placeholder="EX: 2005 Tefla SpicyBoi" [(ngModel)]="vehicles[i].value"></ion-input>
+    <ion-item *ngFor="let vehicle of vehicles; let i = index;trackBy:trackByFn">
+      <ion-input type="text" placeholder="EX: 2005 Tefla SpicyBoi"  [(ngModel)]="vehicles[i]"></ion-input>
     </ion-item>
     <ion-item>
-      <button (click)="vehicles.push('')">List Another Vehicle</button>
-      <button (click)="vehicles.pop()">Remove a Vehicle</button>
+      <button  (click)="vehicles.push('')" >List Another Vehicle</button>
+      <button (click)="vehicles.pop()" >Remove a Vehicle</button>
     </ion-item>
   </ion-list>
-  <button ion-button full outline (click)="showPrompt()" [disabled]="category=='none' || firstName=='' || lastName==''">Submit</button>
+  <button ion-button full outline (click)="showPrompt()" >Submit</button>
 </ion-content>
