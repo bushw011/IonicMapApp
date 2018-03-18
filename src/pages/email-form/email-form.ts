@@ -39,7 +39,7 @@ export class EmailFormPage {
 
 
   }
-  trackByFn(index, treatment) {
+  trackByFn(index, vehicles) {
     return index;
   }
 
@@ -127,10 +127,13 @@ export class EmailFormPage {
     for(var i = 0; i < arr.length; i++){
       if(arr[i]!='') {
         str += arr[i];
+        if(i != arr.length-1){
+          str += ', '
+        }
       }
-      if(i != arr.length-1){
-        str += ', '
-      }
+    }
+    if(str==''){
+      str = 'none';
     }
     return str;
   }
