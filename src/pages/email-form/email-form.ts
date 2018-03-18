@@ -102,7 +102,7 @@ export class EmailFormPage {
       `<p><strong>Phone Number: </strong>`+this.phoneNumber+`</p>` +
       `<p>Seeking ` +this.category+' insurance assistance' +
       `<p><strong>Homeowner: </strong>`+ this.isHomeOwner+`</p>` +
-      `<p><strong>Vehicles Owned: </strong>` + this.parsedVehicles,
+      `<p><strong>Vehicles Owned: </strong>` + this.parsedVehicles + `</p>`,
 
 
       buttons: [
