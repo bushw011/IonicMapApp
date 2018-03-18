@@ -8,25 +8,28 @@
 
 
 <ion-content padding>
+  <h5>Please complete this form so that we can know some things about you</h5>
   <ion-list>
     <ion-item>
-      <ion-label floating>First Name</ion-label>
+      <ion-label floating color="primary">First Name</ion-label>
       <ion-input type="text" value="" [(ngModel)]="firstName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Last Name</ion-label>
+      <ion-label floating color="primary">Last Name</ion-label>
       <ion-input type="text" value="" [(ngModel)]="lastName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Email</ion-label>
+      <ion-label floating color="primary">Email</ion-label>
       <ion-input type="text" value="" [(ngModel)]="email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Phone Number</ion-label>
+      <ion-label floating color="primary">Phone Number</ion-label>
       <ion-input type="tel" [(ngModel)]="phoneNumber" [textMask]="{mask: masks.phoneNumber}" (blur)="removeTrailing()"></ion-input>
     </ion-item>
+  </ion-list>
+  <ion-list>
     <ion-item>
-      <ion-label>Insurance sought:</ion-label>
+      <ion-label color="primary">Insurance sought:</ion-label>
       <ion-select interface="popover" [(ngModel)]="category" >
         <ion-option value="Home">Home</ion-option>
         <ion-option value="Auto">Auto</ion-option>
@@ -34,11 +37,21 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Do you own a home?</ion-label>
+      <ion-label color="primary">Do you own a home?</ion-label>
       <ion-select interface="popover" [(ngModel)]="isHomeOwner">
         <ion-option value="Yes">Yes</ion-option>
         <ion-option value="No">No</ion-option>
       </ion-select>
+    </ion-item>
+  </ion-list>
+  <h6>Do you own any vehicles? Please list them below in the order of year, make, and model.</h6>
+  <ion-list>
+    <ion-item *ngFor="let vehicle of vehicles; let i = index">
+      <ion-input type="text" placeholder="EX: 2005 Tefla SpicyBoi" [(ngModel)]="vehicles[i].value"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button (click)="vehicles.push('')">List Another Vehicle</button>
+      <button (click)="vehicles.pop()">Remove a Vehicle</button>
     </ion-item>
   </ion-list>
   <button ion-button full outline (click)="showPrompt()" [disabled]="category=='none' || firstName=='' || lastName==''">Submit</button>

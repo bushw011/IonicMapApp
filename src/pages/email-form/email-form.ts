@@ -22,6 +22,8 @@ export class EmailFormPage {
   phoneNumber: string = '';
   isHomeOwner: any='';
 
+  vehicles: string[] = [''];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public alertCtrl: AlertController) {
     this.masks = {
       phoneNumber: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -29,6 +31,8 @@ export class EmailFormPage {
       cardExpiry: [/[0-1]/, /\d/, '/', /[1-2]/, /\d/],
       orderCode: [/[a-zA-z]/, ':', /\d/, /\d/, /\d/, /\d/]
     };
+
+
   }
 
   ionViewDidLoad() {

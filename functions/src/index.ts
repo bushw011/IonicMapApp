@@ -21,7 +21,7 @@ return db.collection('forms').doc(formId)
   .then(doc => {
 
   const form = doc.data();
-
+  var vehicles = form.name;
   const msg = {
     to: 'bushw011@morris.umn.edu',
     from: 'hello@angularfirebase.com',
