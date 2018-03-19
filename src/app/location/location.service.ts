@@ -66,7 +66,6 @@ export class LocationService {
           this.getLocationData(hit.ID).subscribe(
             (location) =>{
               newName = location.name;
-              this.locationList.push(location);
               hit.name = location.name;
               hit.description = location.description;
               currentHits.push(hit);
@@ -74,9 +73,7 @@ export class LocationService {
           );
 
 
-
-        console.log(this.locationList);
-
+        
       });
 
   }

@@ -31,6 +31,8 @@ export class LocationsPage {
   locationName: string;
   locationDescription: string;
 
+  radius: number = 500;
+
   home = HomePage;
 
   constructor(public navCtrl: NavController,
@@ -125,11 +127,13 @@ export class LocationsPage {
         this.userLat = position.coords.latitude;
         this.userLong = position.coords.longitude;
 
-        this.locationService.getLocations(500, [this.userLat, this.userLong]);
+        this.locationService.getLocations(this.radius, [this.userLat, this.userLong]);
         console.log(this.locationService.hits);
       });
     }
   }
+
+
 
 
 
@@ -141,7 +145,9 @@ export class LocationsPage {
     return this.locationService.locationList;
   }
 
+  private searchNewRadius(rad: number) {
 
+  }
 
 
 

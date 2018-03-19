@@ -32,6 +32,10 @@
 
   <div *ngIf="markers?.length > 0; else noLocations" class="content">
     <ion-scroll scrollY="true" style="height: 200px">
+      <ion-label></ion-label>
+      <ion-select interface="popover" [(ngModel)]="radius">
+        <ion-option value="30">500 km</ion-option>
+      </ion-select>
       <ion-list class="location-list">
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
         <button ion-item *ngFor="let marker of markers"><strong>{{marker.name}}: </strong>{{marker.description}}</button>
