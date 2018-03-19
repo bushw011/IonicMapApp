@@ -50,7 +50,6 @@ export class LocationsPage {
 
 
   ionViewDidLeave(){
-    this.markers = [];
     this.locationService.hits = new BehaviorSubject([]);
   }
 
@@ -141,12 +140,13 @@ export class LocationsPage {
 
   }
 
-  public getLocations(){
-    return this.locationService.locationList;
-  }
-
   private searchNewRadius(rad: number) {
-
+    this.locationService.hits = new BehaviorSubject([]);
+    console.log(rad);
+    this.locationService.getLocations(rad, [this.userLat,this.userLong]);
+    this.locationService.hits.subscribe(hits => {
+      this.markers = hits;
+    });
   }
 
 

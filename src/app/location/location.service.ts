@@ -14,7 +14,6 @@ export class LocationService {
   geoRef: any;
   geoFire: any;
   locationObservable: Array<Observable<Location>> = [];
-  locationList: Location[] = [];
   hits = new BehaviorSubject([]);
 
 
@@ -73,7 +72,7 @@ export class LocationService {
           );
 
 
-        
+
       });
 
   }
