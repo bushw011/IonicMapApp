@@ -7,8 +7,7 @@ import {LocationService} from "../../app/location/location.service";
 import { AlertController } from "ionic-angular";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HomePage} from "../home/home";
-
-declare var google;
+import {LocationModalPage} from "../location-modal/location-modal";
 
 @IonicPage()
 @Component({
@@ -19,8 +18,6 @@ declare var google;
 
 export class LocationsPage {
 
-  @ViewChild('map') mapElement;
-  map: any;
   locationObservable: Observable<Location[]>;
   locationList: Location[] = [];
   locationIDs: string[] = [];
@@ -58,7 +55,7 @@ export class LocationsPage {
       distance: marker.distance
     };
     console.log(data.name,data.description,data.distance);
-    const locationModal = this.modal.create('LocationModalPage');
+    const locationModal = this.modal.create('LocationModalPage', {data:data});
     locationModal.present();
   }
 
@@ -75,6 +72,8 @@ export class LocationsPage {
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
       this.filterLocations(this.locationCategory);
+      console.log(hits);
+      console.log(this.userLat, this.userLong);
     });
   }
 
@@ -178,30 +177,6 @@ export class LocationsPage {
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
     });
-  }
-
-
-
-
-  /* This function uses the Haversine formula to calculate distance between two GeoPoints,
-  which is basically a nice alternative to using Google's API.
-  Credit: https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
-   */
-  getDistance(myLocation: Location, targetLocation: Location){
-    var R = 6378137; //Earth's mean radius in meter
-    var dLat = this.rad(targetLocation.coordinates._lat - myLocation.coordinates._lat);
-    var dLong = this.rad(targetLocation.coordinates._long - myLocation.coordinates._long);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.rad(myLocation.coordinates._lat)) * Math.cos(this.rad(targetLocation.coordinates._lat)) *
-      Math.sin(dLong / 2) * Math.sin(dLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1 - a));
-    var d = R * c;
-    return d;
-
-  }
-
-  rad(x:number){
-    return x * Math.PI / 180;
   }
 
 
