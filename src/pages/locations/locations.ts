@@ -28,6 +28,10 @@ export class LocationsPage {
   private userLong: number;
   newLocationID: string;
   markers: any;
+  filteredMarkers: any;
+
+  locationCategory: string = '';
+
   locationName: string;
   locationDescription: string;
 
@@ -61,6 +65,7 @@ export class LocationsPage {
     this.getUserLocation();
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
+      this.filterLocations(this.locationCategory);
     });
   }
 
@@ -111,6 +116,19 @@ export class LocationsPage {
       ]
     });
     alert.present();
+  }
+
+  filterLocations(category: string) {
+    this.filteredMarkers = this.markers;
+
+    if (category != ''){
+      category = category.toLocaleLowerCase();
+      this.filteredMarkers = this.filteredMarkers.filter(location => {
+        return !category || location.category.toLowerCase().indexOf(category) !== -1;
+      })
+    }
+    console.log(this.filteredMarkers);
+    return this.filteredMarkers;
   }
 
   private addLocation(name:string, description:string,category:string, coords:Array<number>) {

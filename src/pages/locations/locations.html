@@ -12,7 +12,7 @@
 </ion-content>
 
 <ion-content>
-  <agm-map [latitude]="userLat" [longitude]="userLong">
+  <!--<agm-map [latitude]="userLat" [longitude]="userLong">
     <agm-marker [latitude]="userLat" [longitude]="userLong" [iconUrl]="'assets/imgs/mobileimgs2.png'">
       <agm-info-window>
         <h3><strong>Hello!</strong></h3>
@@ -23,26 +23,37 @@
                 [latitude]="marker.location[0]"
                 [longitude]="marker.location[1]" >
       <agm-info-window>
-        <h3><strong>{{marker.name}}</strong></h3>
+        <h2><strong>{{marker.name}}</strong></h2>
         <p>{{marker.name}} is {{ marker.distance }} kilometers away from you</p>
         <p>{{marker.description}}</p>
       </agm-info-window>
     </agm-marker>
-  </agm-map>
+  </agm-map>!-->
 
   <div *ngIf="markers?.length > 0; else noLocations" class="content">
-    <ion-scroll scrollY="true" style="height: 200px">
+    <ion-list>
+      <ion-item>
+      <ion-label>Category:</ion-label>
+      <ion-select interface="popover" [(ngModel)]="locationCategory"  (ionChange)="filterLocations(locationCategory)">
+        <ion-option value="">All</ion-option>
+        <ion-option value="Home & Auto">Home & Auto</ion-option>
+        <ion-option value="Home">Home</ion-option>
+        <ion-option value="Auto">Auto</ion-option>
+      </ion-select>
+      </ion-item>
+      <ion-item>
       <ion-label>Select Radius</ion-label>
       <ion-select interface="popover" [(ngModel)]="radius" (ionChange)="searchNewRadius(radius)">
         <ion-option [value]=500>500 km</ion-option>
         <ion-option [value]=250>250 km</ion-option>
         <ion-option [value]=100>100 km</ion-option>
       </ion-select>
+      </ion-item>
+    </ion-list>
       <ion-list class="location-list">
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
-        <button ion-item *ngFor="let marker of markers"><strong>{{marker.name}}: </strong>{{marker.category}}<p>{{marker.description}}</p></button>
+        <button ion-item *ngFor="let marker of filterLocations(locationCategory)"><strong>{{marker.name}}: </strong>{{marker.category}}<p>{{marker.description}}</p></button>
       </ion-list>
-    </ion-scroll>
   </div>
 
   <ng-template #noLocations>
