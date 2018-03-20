@@ -78,6 +78,10 @@ export class LocationsPage {
           placeholder: 'Location Description'
         },
         {
+          name: 'category',
+          placeholder: 'Services offered by location'
+        },
+        {
           name: 'latitude',
           type: 'number',
           placeholder: 'latitude'
@@ -100,7 +104,7 @@ export class LocationsPage {
           text: 'Add Location',
           handler: data => {
             let coords = [+data.latitude,+data.longitude];
-            this.addLocation(data.title, data.description,coords);
+            this.addLocation(data.title, data.description,data.category,coords);
           }
         }
 
@@ -109,11 +113,11 @@ export class LocationsPage {
     alert.present();
   }
 
-  private addLocation(name:string, description:string, coords:Array<number>) {
+  private addLocation(name:string, description:string,category:string, coords:Array<number>) {
     console.log(name);
     console.log(coords);
     this.newLocationID = this.generateID();
-    this.locationService.setLocation(this.newLocationID,name,description,coords);
+    this.locationService.setLocation(this.newLocationID,name,description,category,coords);
   }
 
   private generateID(): string {

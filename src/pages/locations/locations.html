@@ -24,7 +24,7 @@
                 [longitude]="marker.location[1]" >
       <agm-info-window>
         <h3><strong>{{marker.name}}</strong></h3>
-        <p>Marker: {{marker.ID}} is {{ marker.distance }} kilometers from you</p>
+        <p>{{marker.name}} is {{ marker.distance }} kilometers away from you</p>
         <p>{{marker.description}}</p>
       </agm-info-window>
     </agm-marker>
@@ -40,7 +40,7 @@
       </ion-select>
       <ion-list class="location-list">
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
-        <button ion-item *ngFor="let marker of markers"><strong>{{marker.name}}: </strong>{{marker.description}}</button>
+        <button ion-item *ngFor="let marker of markers"><strong>{{marker.name}}: </strong>{{marker.category}}<p>{{marker.description}}</p></button>
       </ion-list>
     </ion-scroll>
   </div>
