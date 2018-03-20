@@ -12,23 +12,6 @@
 </ion-content>
 
 <ion-content>
-  <!--<agm-map [latitude]="userLat" [longitude]="userLong">
-    <agm-marker [latitude]="userLat" [longitude]="userLong" [iconUrl]="'assets/imgs/mobileimgs2.png'">
-      <agm-info-window>
-        <h3><strong>Hello!</strong></h3>
-        <p>You are right here!</p>
-      </agm-info-window>
-    </agm-marker>
-    <agm-marker *ngFor="let marker of markers"
-                [latitude]="marker.location[0]"
-                [longitude]="marker.location[1]" >
-      <agm-info-window>
-        <h2><strong>{{marker.name}}</strong></h2>
-        <p>{{marker.name}} is {{ marker.distance }} kilometers away from you</p>
-        <p>{{marker.description}}</p>
-      </agm-info-window>
-    </agm-marker>
-  </agm-map>!-->
 
   <div *ngIf="markers?.length > 0; else noLocations" class="content">
     <ion-list>
