@@ -52,7 +52,11 @@ export class LocationsPage {
     const data = {
       name: marker.name,
       description: marker.description,
-      distance: marker.distance
+      distance: marker.distance,
+      userLat: this.userLat,
+      userLong: this.userLong,
+      lat: marker.location[0],
+      long: marker.location[1]
     };
     console.log(data.name,data.description,data.distance);
     const locationModal = this.modal.create('LocationModalPage', {data:data});
@@ -135,7 +139,6 @@ export class LocationsPage {
         return !category || location.category.toLowerCase() == category;
       })
     }
-    console.log(this.filteredMarkers);
     return this.filteredMarkers;
   }
 

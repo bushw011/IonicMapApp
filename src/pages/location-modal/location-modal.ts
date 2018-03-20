@@ -9,6 +9,13 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class LocationModalPage {
 
+  userLat:number;
+  userLong:number;
+  locationLat:number;
+  locationLong:number;
+  name:string;
+  description: string;
+  distance:number;
   constructor(public navCtrl: NavController, private navParams: NavParams, private view: ViewController) {
 
   }
@@ -17,6 +24,12 @@ export class LocationModalPage {
     console.log('ionViewDidLoad LocationModalPage');
     const locationData = this.navParams.get('data');
     console.log(locationData);
+    this.userLat = locationData.userLat;
+    this.userLong = locationData.userLong;
+    this.locationLat = locationData.lat;
+    this.locationLong = locationData.long;
+    this.name = locationData.name;
+    this.distance = locationData.distance;
   }
 
   closeModal(){

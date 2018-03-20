@@ -11,7 +11,19 @@
 
 
 <ion-content padding>
-  <agm-map>
+  <agm-map [latitude]="userLat" [longitude]="userLong">
+    <agm-marker [latitude]="userLat" [longitude]="userLong" [iconUrl]="'assets/imgs/mobileimgs2.png'">
+      <agm-info-window>
+        <h3><strong>Hello!</strong></h3>
+        <p>You are right here!</p>
+      </agm-info-window>
+    </agm-marker>
+    <agm-marker [latitude]="locationLat" [longitude]="locationLong">
+      <agm-info-window>
+        <strong>{{name}}</strong> is {{distance}} km away from you
+
+      </agm-info-window>
+    </agm-marker>
 
   </agm-map>
 
