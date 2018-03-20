@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the LocationModalPage page.
@@ -15,11 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LocationModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, private view: ViewController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LocationModalPage');
+  }
+
+  closeModal(){
+    this.view.dismiss();
   }
 
 }

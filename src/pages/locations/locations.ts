@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Location} from "../../app/location/location";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
@@ -42,16 +42,25 @@ export class LocationsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
+              private modal: ModalController,
               private alertCtrl: AlertController,
               public db: AngularFirestore,
               private locationService: LocationService
               ) {
     this.navCtrl = navCtrl;
 
-
   }
 
-
+  openLocationModal(marker) {
+    const data = {
+      name: marker.name,
+      description: marker.description,
+      distance: marker.distance
+    };
+    console.log(data.name,data.description,data.distance);
+    const locationModal = this.modal.create('LocationModalPage');
+    locationModal.present();
+  }
 
   ionViewDidLeave(){
     this.locationService.hits = new BehaviorSubject([]);
@@ -124,7 +133,7 @@ export class LocationsPage {
     if (category != ''){
       category = category.toLocaleLowerCase();
       this.filteredMarkers = this.filteredMarkers.filter(location => {
-        return !category || location.category.toLowerCase().indexOf(category) !== -1;
+        return !category || location.category.toLowerCase() == category;
       })
     }
     console.log(this.filteredMarkers);
