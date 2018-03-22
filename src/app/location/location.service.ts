@@ -32,7 +32,8 @@ export class LocationService {
       .catch(err => console.log(err));
     this.db.object('/locationData/'+ID).update({
       name:name,
-      description:description
+      description:description,
+      category: category
     });
   }
 

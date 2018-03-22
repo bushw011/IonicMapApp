@@ -20,12 +20,12 @@
     </agm-marker>
     <agm-marker [latitude]="locationLat" [longitude]="locationLong">
       <agm-info-window>
-        <strong>{{name}}</strong> is {{distance}} km away from you
+        <strong>{{name}}</strong> is {{distance}} miles away from you
 
       </agm-info-window>
     </agm-marker>
-
   </agm-map>
-
+  <h2><strong>{{name}}</strong>: {{category}}</h2>
+  <p>{{description}}</p>
 </ion-content>
 

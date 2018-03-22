@@ -32,7 +32,9 @@ export class LocationsPage {
   locationName: string;
   locationDescription: string;
 
-  radius: number = 500;
+
+
+  radius: number = 80.4672;
 
   home = HomePage;
 
@@ -53,7 +55,8 @@ export class LocationsPage {
     const data = {
       name: marker.name,
       description: marker.description,
-      distance: marker.distance,
+      distance: (marker.distance/1.609344).toFixed(2),
+      category: marker.category,
       userLat: this.userLat,
       userLong: this.userLong,
       lat: marker.location[0],
@@ -130,6 +133,7 @@ export class LocationsPage {
     });
     alert.present();
   }
+
 
   filterLocations(category: string) {
     this.filteredMarkers = this.markers;
