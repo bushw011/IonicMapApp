@@ -45,7 +45,8 @@ export class LocationsPage {
               private locationService: LocationService
               ) {
     this.navCtrl = navCtrl;
-
+    this.locationCategory = this.navParams.get('category');
+    console.log(this.locationCategory);
   }
 
   openLocationModal(marker) {

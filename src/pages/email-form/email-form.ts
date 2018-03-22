@@ -35,7 +35,7 @@ export class EmailFormPage {
       cardExpiry: [/[0-1]/, /\d/, '/', /[1-2]/, /\d/],
       orderCode: [/[a-zA-z]/, ':', /\d/, /\d/, /\d/, /\d/]
     };
-
+    console.log(this.navParams.get('category'));
     this.category = navParams.get('category');
 
   }
@@ -116,8 +116,10 @@ export class EmailFormPage {
           text: 'Send',
           handler: data => {
             console.log('Saved clicked');
-            this.submitEmail();
-            this.navCtrl.push(this.locations)
+            //this.submitEmail();
+            this.navCtrl.push(this.locations, {
+              category: this.category
+            });
           }
         }
       ]
