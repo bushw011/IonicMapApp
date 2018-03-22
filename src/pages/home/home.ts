@@ -22,8 +22,10 @@ export class HomePage {
     this.navCtrl.push(this.locations);
   }
 
-  navigateToForm(){
-    this.navCtrl.push(this.emailForm);
+  navigateToForm(category: string){
+    this.navCtrl.push(this.emailForm, {
+      category: category
+    });
   }
 
 }

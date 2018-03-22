@@ -36,7 +36,7 @@ export class EmailFormPage {
       orderCode: [/[a-zA-z]/, ':', /\d/, /\d/, /\d/, /\d/]
     };
 
-
+    this.category = navParams.get('category');
 
   }
   trackByFn(index, vehicles) {
