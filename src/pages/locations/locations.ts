@@ -29,6 +29,8 @@ export class LocationsPage {
 
   locationCategory: string = '';
 
+
+
   locationName: string;
   locationDescription: string;
 
@@ -47,8 +49,10 @@ export class LocationsPage {
               private locationService: LocationService
               ) {
     this.navCtrl = navCtrl;
+    if(this.navParams.get('category')!=null)
     this.locationCategory = this.navParams.get('category');
     console.log(this.locationCategory);
+
   }
 
   openLocationModal(marker) {
@@ -79,11 +83,11 @@ export class LocationsPage {
     this.getUserLocation();
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
-      this.filterLocations(this.locationCategory);
-      console.log(hits);
-      console.log(this.userLat, this.userLong);
+      console.log(this.markers);
+      this.filterLocations(this.locationCategory, this.markers);
     });
   }
+
 
   createLocation() {
     let alert = this.alertCtrl.create({
@@ -135,18 +139,6 @@ export class LocationsPage {
   }
 
 
-  filterLocations(category: string) {
-    this.filteredMarkers = this.markers;
-
-    if (category != ''){
-      category = category.toLocaleLowerCase();
-      this.filteredMarkers = this.filteredMarkers.filter(location => {
-        return !category || location.category.toLowerCase() == category;
-      })
-    }
-    return this.filteredMarkers;
-  }
-
   private addLocation(name:string, description:string,category:string, coords:Array<number>) {
     console.log(name);
     console.log(coords);
@@ -170,6 +162,27 @@ export class LocationsPage {
     }
   }
 
+  updateSearchParams(){
+    this.searchNewRadius(this.radius).subscribe(locations => {
+      this.filterLocations(this.locationCategory,locations)
+    });
+  }
+
+  filterLocations(category: string, markers) {
+    markers.sort((a,b) => {
+      return a.distance - b.distance;
+    });
+    this.filteredMarkers = markers;
+    //console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
+    if (category != ''){
+      category = category.toLocaleLowerCase();
+      this.filteredMarkers = this.filteredMarkers.filter(location => {
+        //console.log(this.filteredMarkers);
+         return !category || location.category.toLowerCase().indexOf(category) !== -1;
+      })
+    }
+    return this.filteredMarkers;
+  }
 
 
 
@@ -184,8 +197,12 @@ export class LocationsPage {
     this.locationService.getLocations(rad, [this.userLat,this.userLong]);
     this.locationService.hits.subscribe(hits => {
       this.markers = hits;
+      this.filterLocations(this.locationCategory,this.markers);
+
     });
   }
+
+
 
 
 

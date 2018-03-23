@@ -38,6 +38,7 @@ export class EmailFormPage {
     console.log(this.navParams.get('category'));
     this.category = navParams.get('category');
 
+
   }
   trackByFn(index, vehicles) {
     return index;

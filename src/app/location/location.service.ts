@@ -44,7 +44,7 @@ export class LocationService {
     let newName = '';
     let newDescription = '';
 
-    this.geoFire.query({
+    return this.geoFire.query({
       center: coords,
       radius: radius
     })
@@ -60,7 +60,6 @@ export class LocationService {
           description: '',
           category: ''
         };
-        console.log(hit.name);
         let currentHits = this.hits.value;
 
 

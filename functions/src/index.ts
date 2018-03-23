@@ -24,7 +24,7 @@ return db.collection('forms').doc(formId)
   var vehicles = form.name;
   const msg = {
     to: 'bushw011@morris.umn.edu',
-    from: 'hello@angularfirebase.com',
+    from: 'bushw011@morris.umn.edu',
     subject:  'New User',
 
     // custom templates

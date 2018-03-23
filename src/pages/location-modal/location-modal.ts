@@ -16,6 +16,7 @@ export class LocationModalPage {
   name:string;
   description: string;
   distance:string;
+  category: string;
   constructor(public navCtrl: NavController, private navParams: NavParams, private view: ViewController) {
 
   }
@@ -30,6 +31,7 @@ export class LocationModalPage {
     this.locationLong = locationData.long;
     this.name = locationData.name;
     this.description = locationData.description;
+    this.category = locationData.category;
     this.distance = locationData.distance;
   }
 
