@@ -81,7 +81,7 @@ export class LocationsPage {
     this.locationIDs = [];
 
     this.getUserLocation();
-    this.locationService.hits.delay(200).subscribe(hits => {
+    this.locationService.hits.delay(500).subscribe(hits => {
       this.markers = hits;
       console.log(this.markers);
       this.filterLocations(this.locationCategory, hits);
@@ -143,7 +143,7 @@ export class LocationsPage {
     console.log(name);
     console.log(coords);
     this.newLocationID = this.generateID();
-    this.locationService.setLocation(this.newLocationID,name,description,category,coords);
+    this.locationService.setLocation(this.newLocationID,'place','this place','Home',[44.912341,-95.641231]);
   }
 
   private generateID(): string {
@@ -165,11 +165,13 @@ export class LocationsPage {
 
 
   filterLocations(category: string, markers) {
+    console.log('called');
     markers.sort((a,b) => {
       return a.distance - b.distance;
     });
+    console.log(markers);
     this.filteredMarkers = markers;
-    //console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
+    console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
     if (category != ''){
       category = category.toLocaleLowerCase();
       this.filteredMarkers = this.filteredMarkers.filter(location => {
@@ -193,6 +195,7 @@ export class LocationsPage {
     this.locationService.getLocations(rad, [this.userLat,this.userLong]);
     this.locationService.hits.delay(200).subscribe(hits => {
       this.markers = hits;
+      this.filteredMarkers = hits;
       this.filterLocations(this.locationCategory,this.markers);
 
     });

@@ -15,7 +15,8 @@ export class LocationService {
   geoFire: any;
   locationObservable: Array<Observable<Location>> = [];
   hits = new BehaviorSubject([]);
-
+  markers: any;
+  filteredMarkers: any;
 
   constructor(public db: AngularFireDatabase) {
     this.geoRef = this.db.list('/geoData');
@@ -44,7 +45,7 @@ export class LocationService {
     let newName = '';
     let newDescription = '';
 
-    return this.geoFire.query({
+    this.geoFire.query({
       center: coords,
       radius: radius
     })
@@ -72,12 +73,18 @@ export class LocationService {
               currentHits.push(hit);
             }
           );
-
-
+        this.hits.next(currentHits);
 
       });
-
   }
+
+  filterLocations(){
+    this.hits.subscribe(hits => {
+      this.markers = hits;
+    });
+  }
+
+
   getLocationData(ID: string): Observable<Location>{
     return this.db.object('/locationData/'+ID).valueChanges();
   }
