@@ -81,10 +81,10 @@ export class LocationsPage {
     this.locationIDs = [];
 
     this.getUserLocation();
-    this.locationService.hits.subscribe(hits => {
+    this.locationService.hits.delay(200).subscribe(hits => {
       this.markers = hits;
       console.log(this.markers);
-      this.filterLocations(this.locationCategory, this.markers);
+      this.filterLocations(this.locationCategory, hits);
     });
   }
 
@@ -162,11 +162,7 @@ export class LocationsPage {
     }
   }
 
-  updateSearchParams(){
-    this.searchNewRadius(this.radius).subscribe(locations => {
-      this.filterLocations(this.locationCategory,locations)
-    });
-  }
+
 
   filterLocations(category: string, markers) {
     markers.sort((a,b) => {
@@ -195,7 +191,7 @@ export class LocationsPage {
     this.locationService.hits = new BehaviorSubject([]);
     console.log(rad);
     this.locationService.getLocations(rad, [this.userLat,this.userLong]);
-    this.locationService.hits.subscribe(hits => {
+    this.locationService.hits.delay(200).subscribe(hits => {
       this.markers = hits;
       this.filterLocations(this.locationCategory,this.markers);
 

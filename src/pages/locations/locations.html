@@ -26,7 +26,7 @@
       </ion-item>
       <ion-item>
       <ion-label>Select Radius</ion-label>
-      <ion-select interface="popover" [(ngModel)]="radius" (ionChange)="searchNewRadius(radius); filterLocations(locationCategory, markers)">
+      <ion-select interface="popover" [(ngModel)]="radius" (ionChange)="searchNewRadius(radius)">
         <ion-option [value]=1000>75 miles</ion-option>
         <ion-option [value]=80.4672>50 miles</ion-option>
         <ion-option [value]=40.2336>25 miles</ion-option>
@@ -35,7 +35,7 @@
     </ion-list>
       <ion-list class="location-list" >
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
-        <button ion-item  *ngFor="let marker of filterLocations(locationCategory, markers)" (click)="openLocationModal(marker)"><strong>{{marker.name}}: </strong>{{marker.category}}
+        <button ion-item  *ngFor="let marker of filteredMarkers" (click)="openLocationModal(marker)"><strong>{{marker.name}}: </strong>{{marker.category}}
           <p>{{(marker.distance/1.609344).toFixed(2)}} miles away</p>
           <p>{{marker.description}}</p></button>
       </ion-list>
