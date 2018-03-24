@@ -56,24 +56,23 @@ export class LocationService {
         let hit = {
           location: location,
           distance: distance,
-          ID: key,
           name: '',
           description: '',
           category: ''
         };
         let currentHits = this.hits.value;
 
-
-          this.getLocationData(hit.ID).subscribe(
+          this.getLocationData(key).subscribe(
             (location) =>{
               newName = location.name;
               hit.name = location.name;
               hit.description = location.description;
               hit.category = location.category;
               currentHits.push(hit);
+              this.hits.next(currentHits);
+
             }
           );
-        this.hits.next(currentHits);
 
       });
   }

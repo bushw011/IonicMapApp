@@ -8,6 +8,7 @@ import { AlertController } from "ionic-angular";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HomePage} from "../home/home";
 import {LocationModalPage} from "../location-modal/location-modal";
+import {_finally} from "rxjs/operator/finally";
 
 @IonicPage()
 @Component({
@@ -25,6 +26,8 @@ export class LocationsPage {
   private userLong: number;
   newLocationID: string;
   markers: any;
+  subscription: any;
+
   filteredMarkers: any;
 
   locationCategory: string = '';
@@ -78,14 +81,16 @@ export class LocationsPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad LocationsPage');
-    this.locationIDs = [];
-
     this.getUserLocation();
-    this.locationService.hits.delay(500).subscribe(hits => {
-      this.markers = hits;
-      console.log(this.markers);
-      this.filterLocations(this.locationCategory, hits);
-    });
+    this.subscription = this.locationService.hits
+      .subscribe((hits) =>{
+        this.markers = hits;
+        this.filterLocations(this.locationCategory, this.markers)
+
+        },
+        (err)=> {
+          console.log(err);
+        });
   }
 
 
@@ -177,7 +182,7 @@ export class LocationsPage {
       this.filteredMarkers = this.filteredMarkers.filter(location => {
         //console.log(this.filteredMarkers);
          return !category || location.category.toLowerCase().indexOf(category) !== -1;
-      })
+      });
     }
     return this.filteredMarkers;
   }
@@ -193,9 +198,9 @@ export class LocationsPage {
     this.locationService.hits = new BehaviorSubject([]);
     console.log(rad);
     this.locationService.getLocations(rad, [this.userLat,this.userLong]);
-    this.locationService.hits.delay(200).subscribe(hits => {
+    this.locationService.hits.subscribe(hits => {
       this.markers = hits;
-      this.filteredMarkers = hits;
+      //this.filteredMarkers = hits;
       this.filterLocations(this.locationCategory,this.markers);
 
     });
