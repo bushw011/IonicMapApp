@@ -17,6 +17,8 @@ export class LocationModalPage {
   description: string;
   distance:string;
   category: string;
+  marker: any;
+  phoneNumber: string;
   constructor(public navCtrl: NavController, private navParams: NavParams, private view: ViewController) {
 
   }
@@ -25,6 +27,9 @@ export class LocationModalPage {
     console.log('ionViewDidLoad LocationModalPage');
     const locationData = this.navParams.get('data');
     console.log(locationData);
+    this.marker = locationData.marker;
+    console.log(locationData.marker.name);
+    this.phoneNumber = this.formatPhoneNumber(locationData.phoneNumber);
     this.userLat = locationData.userLat;
     this.userLong = locationData.userLong;
     this.locationLat = locationData.lat;
@@ -34,6 +39,12 @@ export class LocationModalPage {
     this.category = locationData.category;
     this.distance = locationData.distance;
   }
+
+  formatPhoneNumber(str:string):string{
+    return "("+str.substring(0,3)+") "+str.substring(3,6)+"-"+str.substring(6,11);
+  }
+
+
 
   closeModal(){
     this.view.dismiss();

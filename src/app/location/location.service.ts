@@ -58,7 +58,8 @@ export class LocationService {
           distance: distance,
           name: '',
           description: '',
-          category: ''
+          category: '',
+          phoneNumber: 555
         };
         let currentHits = this.hits.value;
 
@@ -68,6 +69,7 @@ export class LocationService {
               hit.name = location.name;
               hit.description = location.description;
               hit.category = location.category;
+              hit.phoneNumber = location.phoneNumber;
               currentHits.push(hit);
               this.hits.next(currentHits);
 

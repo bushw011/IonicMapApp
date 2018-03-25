@@ -8,7 +8,8 @@ import { AlertController } from "ionic-angular";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HomePage} from "../home/home";
 import {LocationModalPage} from "../location-modal/location-modal";
-import {_finally} from "rxjs/operator/finally";
+import * as GeoFire from "geofire";
+import {AngularFireDatabase} from "angularfire2/database";
 
 @IonicPage()
 @Component({
@@ -32,6 +33,9 @@ export class LocationsPage {
 
   locationCategory: string = '';
 
+  geoRef: any;
+  geoFire: any;
+  hits = new BehaviorSubject([]);
 
 
   locationName: string;
@@ -48,20 +52,27 @@ export class LocationsPage {
               public viewCtrl: ViewController,
               private modal: ModalController,
               private alertCtrl: AlertController,
-              public db: AngularFirestore,
+              public db: AngularFireDatabase,
               private locationService: LocationService
               ) {
+    this.geoRef = this.db.list('/geoData');
+    this.geoFire = new GeoFire(this.geoRef.query.ref);
+
     this.navCtrl = navCtrl;
     if(this.navParams.get('category')!=null)
     this.locationCategory = this.navParams.get('category');
     console.log(this.locationCategory);
 
+
+
   }
 
   openLocationModal(marker) {
     const data = {
+      marker: marker,
       name: marker.name,
       description: marker.description,
+      phoneNumber: String(marker.phoneNumber),
       distance: (marker.distance/1.609344).toFixed(2),
       category: marker.category,
       userLat: this.userLat,
@@ -69,7 +80,7 @@ export class LocationsPage {
       lat: marker.location[0],
       long: marker.location[1]
     };
-    console.log(data.name,data.description,data.distance);
+    console.log(data.name,data.description,data.distance, data.phoneNumber,data.category);
     const locationModal = this.modal.create('LocationModalPage', {data:data});
     locationModal.present();
   }
@@ -91,6 +102,8 @@ export class LocationsPage {
         (err)=> {
           console.log(err);
         });
+
+
   }
 
 
@@ -110,6 +123,10 @@ export class LocationsPage {
         {
           name: 'category',
           placeholder: 'Services offered by location'
+        },
+        {
+          name: 'phone number',
+          placeholder: 'How to contact them'
         },
         {
           name: 'latitude',
@@ -148,7 +165,7 @@ export class LocationsPage {
     console.log(name);
     console.log(coords);
     this.newLocationID = this.generateID();
-    this.locationService.setLocation(this.newLocationID,'place','this place','Home',[44.912341,-95.641231]);
+    this.locationService.setLocation(this.newLocationID,name,description,category,coords);
   }
 
   private generateID(): string {
@@ -160,9 +177,8 @@ export class LocationsPage {
       navigator.geolocation.getCurrentPosition(position => {
         this.userLat = position.coords.latitude;
         this.userLong = position.coords.longitude;
-
+        console.log(position.coords);
         this.locationService.getLocations(this.radius, [this.userLat, this.userLong]);
-        console.log(this.locationService.hits);
       });
     }
   }
@@ -170,7 +186,6 @@ export class LocationsPage {
 
 
   filterLocations(category: string, markers) {
-    console.log('called');
     markers.sort((a,b) => {
       return a.distance - b.distance;
     });
@@ -205,6 +220,8 @@ export class LocationsPage {
 
     });
   }
+
+
 
 
 

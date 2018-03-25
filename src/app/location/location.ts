@@ -4,6 +4,7 @@ export interface Location {
   name?: string,
   category?: string,
   description?: string,
+  phoneNumber?: number,
   coordinates?: {_lat: number, _long: number}
 }
 

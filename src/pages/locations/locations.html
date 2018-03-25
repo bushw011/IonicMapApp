@@ -13,7 +13,6 @@
 
 <ion-content>
 
-  <div *ngIf="markers?.length > 0; else noLocations" class="content">
     <ion-list>
       <ion-item>
       <ion-label>Category:</ion-label>
@@ -27,19 +26,21 @@
       <ion-item>
       <ion-label>Select Radius</ion-label>
       <ion-select interface="popover" [(ngModel)]="radius" (ionChange)="searchNewRadius(radius)">
-        <ion-option [value]=1000>75 miles</ion-option>
+        <ion-option [value]=160.934>100 miles</ion-option>
         <ion-option [value]=80.4672>50 miles</ion-option>
         <ion-option [value]=40.2336>25 miles</ion-option>
       </ion-select>
       </ion-item>
     </ion-list>
+    <ion-scroll scrollY="true" style="height: 500px">
       <ion-list class="location-list" >
         <button ion-item (click)="createLocation()" >Seed DB <p>(this is temporary and strictly for testing)</p></button>
         <button ion-item  *ngFor="let marker of filteredMarkers" (click)="openLocationModal(marker)"><strong>{{marker.name}}: </strong>{{marker.category}}
           <p>{{(marker.distance/1.609344).toFixed(2)}} miles away</p>
           <p>{{marker.description}}</p></button>
       </ion-list>
-  </div>
+    </ion-scroll>
+
 
   <ng-template #noLocations>
     <hr>

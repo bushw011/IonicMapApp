@@ -117,7 +117,7 @@ export class EmailFormPage {
           text: 'Send',
           handler: data => {
             console.log('Saved clicked');
-            //this.submitEmail();
+            this.submitEmail();
             this.navCtrl.push(this.locations, {
               category: this.category
             });

@@ -55,5 +55,5 @@
       <button (click)="vehicles.pop()" >Remove a Vehicle</button>
     </ion-item>
   </ion-list>
-  <button ion-button full outline (click)="showPrompt()" >Submit</button>
+  <button ion-button full outline [disabled]="firstName==''||lastName==''||category=='none'||isHomeOwner==''" (click)="showPrompt()" >Submit</button>
 </ion-content>
