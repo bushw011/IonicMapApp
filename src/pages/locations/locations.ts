@@ -151,7 +151,7 @@ export class LocationsPage {
           text: 'Add Location',
           handler: data => {
             let coords = [+data.latitude,+data.longitude];
-            this.addLocation(data.title, data.description,data.category,coords);
+            this.addLocation(data.title, data.description,data.phoneNumber,data.category,coords);
           }
         }
 
@@ -161,11 +161,11 @@ export class LocationsPage {
   }
 
 
-  private addLocation(name:string, description:string,category:string, coords:Array<number>) {
+  private addLocation(name:string, description:string,phoneNumber,category:string, coords:Array<number>) {
     console.log(name);
     console.log(coords);
     this.newLocationID = this.generateID();
-    this.locationService.setLocation(this.newLocationID,name,description,category,coords);
+    this.locationService.setLocation(this.newLocationID,name,description,phoneNumber,category,coords);
   }
 
   private generateID(): string {
@@ -189,9 +189,8 @@ export class LocationsPage {
     markers.sort((a,b) => {
       return a.distance - b.distance;
     });
-    console.log(markers);
     this.filteredMarkers = markers;
-    console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
+    //console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
     if (category != ''){
       category = category.toLocaleLowerCase();
       this.filteredMarkers = this.filteredMarkers.filter(location => {

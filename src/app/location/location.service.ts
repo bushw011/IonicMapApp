@@ -26,7 +26,7 @@ export class LocationService {
 
 
   // Not sure if I'm gonna need this specifically for this app, but during development it can't hurt to have a client-side means of adding locations to the database
-  setLocation(ID, name:string,description:string,category:string, coords: Array<number>) {
+  setLocation(ID, name:string,description:string,phoneNumber,category:string, coords: Array<number>) {
     console.log('eyyy');
     this.geoFire.set(ID,coords)
       .then(_ => console.log('location updated'))
@@ -34,7 +34,8 @@ export class LocationService {
     this.db.object('/locationData/'+ID).update({
       name:name,
       description:description,
-      category: category
+      category: category,
+      phoneNumber: phoneNumber
     });
   }
 
@@ -42,8 +43,6 @@ export class LocationService {
 
   // Queries the database for nearby locations, and then maps to BehaviorSubject
   getLocations(radius: number, coords: Array<number>) {
-    let newName = '';
-    let newDescription = '';
 
     this.geoFire.query({
       center: coords,
@@ -51,8 +50,6 @@ export class LocationService {
     })
       .on('key_entered', (key, location, distance) => {
 
-
-        console.log(newName);
         let hit = {
           location: location,
           distance: distance,
@@ -65,7 +62,6 @@ export class LocationService {
 
           this.getLocationData(key).subscribe(
             (location) =>{
-              newName = location.name;
               hit.name = location.name;
               hit.description = location.description;
               hit.category = location.category;

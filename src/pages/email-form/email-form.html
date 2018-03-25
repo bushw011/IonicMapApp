@@ -48,7 +48,7 @@
   <h6>Do you own any vehicles? Please list them below in the order of year, make, and model. Leave this section blank if you own no vehicles.</h6>
   <ion-list>
     <ion-item *ngFor="let vehicle of vehicles; let i = index;trackBy:trackByFn">
-      <ion-input type="text" placeholder="EX: 2005 Tefla SpicyBoi"  [(ngModel)]="vehicles[i]"></ion-input>
+      <ion-input type="text" placeholder="EX: 2005 Tefla Model 7"  [(ngModel)]="vehicles[i]"></ion-input>
     </ion-item>
     <ion-item>
       <button [disabled]="vehicles[vehicles.length-1]==''"  (click)="vehicles.push('')" >List Another Vehicle</button>
