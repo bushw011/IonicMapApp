@@ -44,6 +44,11 @@ export class LocationModalPage {
     return "("+str.substring(0,3)+") "+str.substring(3,6)+"-"+str.substring(6,11);
   }
 
+  displayParagraphs(text:string):string{
+
+    return text.replace(new RegExp('\n', 'g'),"<br />");
+  }
+
 
 
   closeModal(){

@@ -113,7 +113,7 @@ export class LocationsPage {
       message: 'Please enter in the appropriate information',
       inputs: [
         {
-          name: 'title',
+          name: 'name',
           placeholder: 'Location Name'
         },
         {
@@ -125,7 +125,7 @@ export class LocationsPage {
           placeholder: 'Services offered by location'
         },
         {
-          name: 'phone number',
+          name: 'phoneNumber',
           placeholder: 'How to contact them'
         },
         {
@@ -151,7 +151,7 @@ export class LocationsPage {
           text: 'Add Location',
           handler: data => {
             let coords = [+data.latitude,+data.longitude];
-            this.addLocation(data.title, data.description,data.phoneNumber,data.category,coords);
+            this.addLocation(data.name, data.description,data.phoneNumber,data.category,coords);
           }
         }
 
