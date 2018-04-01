@@ -13,7 +13,7 @@ describe("Location List", () => {
   let fixture: ComponentFixture<LocationsPage>;
 
   let locationServiceStub: {
-    getLocations: () => Observable<Location[]>
+    getLocations: () => Observable<any[]>
   };
 
   beforeEach(async(() => {
@@ -24,19 +24,43 @@ describe("Location List", () => {
           ID: 'auto_place1',
           name: 'Auto Insurance Place',
           category: 'Auto',
-          description: 'This is an auto insurance location'
+          description: 'This is an auto insurance location',
+          distance: 5.1
         },
         {
           ID: 'home_place1',
           name: 'Home Insurance Place',
           category: 'Home',
-          description: 'This is a home insurance location'
+          description: 'This is a home insurance location',
+          distance: 22.923
         },
         {
           ID: 'home&auto_place1',
           name: 'Home & Auto Insurance Place',
           category: 'Home & Auto',
-          description: 'This is a home & auto insurance location'
+          description: 'This is a home & auto insurance location',
+          distance: 4
+        },
+        {
+          ID: 'auto_place2',
+          name: 'Auto Insurance Place 2',
+          category: 'Auto',
+          description: 'This is an auto insurance location',
+          distance: 10.8193
+        },
+        {
+          ID: 'home&auto_place2',
+          name: 'Home & Auto Insurance Place',
+          category: 'Home & Auto',
+          description: 'This is a home & auto insurance location',
+          distance: 3.1231
+        },
+        {
+          ID: 'home_place2',
+          name: 'Home Insurance Place 2',
+          category: 'Home',
+          description: 'This is a home insurance location',
+          distance: 6.021
         }
       ])
     };
@@ -47,7 +71,17 @@ describe("Location List", () => {
       declarations: [LocationsPage],
       imports: [FormsModule],
       providers: [{provide: LocationService, useValue: locationServiceStub}]
-    })
+    });
+
+    beforeEach(async(() => {
+      TestBed.compileComponents().then(() => {
+        fixture = TestBed.createComponent(LocationsPage);
+        locationList = fixture.componentInstance;
+        fixture.detectChanges();
+      })
+    }));
+
+
 
 
   }));

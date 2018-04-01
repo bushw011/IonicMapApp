@@ -186,9 +186,7 @@ export class LocationsPage {
 
 
   filterLocations(category: string, markers) {
-    markers.sort((a,b) => {
-      return a.distance - b.distance;
-    });
+    this.sortMarkers(markers);
     this.filteredMarkers = markers;
     //console.log('markers to be filtered: ', this.filteredMarkers, 'category: ',category);
     if (category != ''){
@@ -201,6 +199,11 @@ export class LocationsPage {
     return this.filteredMarkers;
   }
 
+  sortMarkers(markers){
+    markers.sort((a,b)=> {
+      return a.distance - b.distance;
+    })
+  }
 
 
 
