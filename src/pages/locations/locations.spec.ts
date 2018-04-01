@@ -81,6 +81,10 @@ describe("Location List", () => {
       })
     }));
 
+    it('contains all the locations', () => {
+      expect(locationList.markers.length).toBe(6);
+    });
+
 
 
 
