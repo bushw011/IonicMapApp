@@ -19,6 +19,7 @@ import { AgmCoreModule} from '@agm/core';
 import {TextMaskModule} from "angular2-text-mask";
 
 import * as firebase from 'firebase';
+import {LoginPage} from "../pages/login/login";
 
 AngularFirestoreModule.enablePersistence();
 firebase.initializeApp(environment.firebase);
@@ -28,7 +29,8 @@ firebase.initializeApp(environment.firebase);
     MyApp,
     HomePage,
     LocationsPage,
-    EmailFormPage
+    EmailFormPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ firebase.initializeApp(environment.firebase);
   entryComponents: [
     MyApp,
     LocationsPage,
+    LoginPage,
     HomePage,
     EmailFormPage
   ],
